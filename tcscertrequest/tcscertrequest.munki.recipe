@@ -45,7 +45,7 @@
     <key>Process</key>
     <array>
         <!-- NOTE!
-          Make sure we have the correct version, not accidentaly the version of the pkg itself
+          Make sure we have the correct version, not accidentally the version of the pkg itself
         -->
         <dict>
             <key>Processor</key>
