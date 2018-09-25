@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+		<string>Download the latest version of YubiKey Manager from Yubico</string>
+    <key>Identifier</key>
+    <string>com.github.apfelwerk.download.yubikey_manager</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>YubiKey Manager</string>
+        <key>URL</key>
+				<string>https://developers.yubico.com/yubikey-manager-qt/Releases/</string>
+				<key>RE_PATTERN</key>
+				<string>(?P&lt;dl_filename&gt;yubikey-manager-qt-((\d*\.?)*)-mac.pkg)</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+          <key>Processor</key>
+          <string>URLTextSearcher</string>
+          <key>Arguments</key>
+          <dict>
+            <key>url</key>
+            <string>%URL%</string>
+            <key>re_pattern</key>
+            <string>%RE_PATTERN%</string>
+						<key>result_output_var_name</key>
+            <string>dl_filename</string>
+          </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%URL%%dl_filename%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+				<dict>
+					<key>Processor</key>
+					<string>CodeSignatureVerifier</string>
+					<key>Arguments</key>
+					<dict>
+						<key>input_path</key>
+						<string>%pathname%</string>
+						<key>expected_authority_names</key>
+						<array>
+								<string>Developer ID Installer: Yubico Limited (LQA3CS5MM7)</string>
+								<string>Developer ID Certification Authority</string>
+								<string>Apple Root CA</string>
+						</array>
+					</dict>
+				</dict>
+    </array>
+</dict>
+</plist>

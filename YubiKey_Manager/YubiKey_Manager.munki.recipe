@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Download and import to Munki the latest version of YubiKey Manager from Yubico</string>
+		<key>Identifier</key>
+    <string>com.github.apfelwerk.munki.yubikey_manager</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apfelwerk.download.yubikey_manager</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>MUNKI_NAME</key>
+        <string>%NAME%</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/%NAME%</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Utilities</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Yubico</string>
+        <key>DISPLAY_NAME</key>
+        <string>YubiKey Manager</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>Use the YubiKey Manager to configure FIDO2 and OTP functionality on your YubiKey on Windows, macOS, and Linux operating systems. The tool works with any currently supported YubiKey. You can also use the tool to check the type and firmware of a YubiKey. In addition, you can use the extended settings to specify other features, such as to configure 3-second long touch.</string>
+						<key>display_name</key>
+            <string>%DISPLAY_NAME%</string>
+            <key>name</key>
+            <string>%MUNKI_NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+        </dict>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
