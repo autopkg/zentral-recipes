@@ -61,7 +61,7 @@
 									<string>%NAME%</string>
 									<key>pkg_request</key>
 									<dict>
-											<key>pk§gdir</key>
+											<key>pkgdir</key>
 											<string>%RECIPE_CACHE_DIR%</string>
 											<key>id</key>
 											<string>%PKG_ID%</string>
