@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download Oni editor for macOS and import it to Munki</string>
+		<string>Downloads the latest version of Jamf Pro Switcher and imports it to Munki</string>
     <key>Identifier</key>
-    <string>com.github.apfelwerk.munki.oni</string>
+    <string>com.github.apfelwerk.munki.jamfproswitcher</string>
     <key>ParentRecipe</key>
-    <string>com.github.apfelwerk.download.oni</string>
+    <string>com.github.apfelwerk.download.jamfproswitcher</string>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>Oni</string>
+        <string>jamfproswitcher</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/%NAME%</string>
         <key>MUNKI_CATEGORY</key>
-        <string>Text Editors</string>
+        <string>Admin Tools</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>Bryan Phelps</string>
+        <string>Nindi Gill (ninxsoft)</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -27,9 +27,9 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Oni is a new kind of editor, focused on maximizing productivity - combining modal editing with features you expect in modern editors. Oni is built with neovim, and inspired by VSCode, Atom, LightTable, and Emacs</string>
+						<string>A utility that quickly switches between multiple Jamf Pro Server instances. See https://github.com/ninxsoft/JamfProSwitcher for more details.</string>
             <key>display_name</key>
-            <string>Oni</string>
+            <string>Jamf Pro Switcher</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>

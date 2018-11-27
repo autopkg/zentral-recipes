@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and installs the latest version of Oni editor.</string>
+    <string>Downloads and installs the latest version of Jamf Pro Switcher tool.</string>
     <key>Identifier</key>
-    <string>com.github.apfelwerk.install.oni</string>
+    <string>com.github.apfelwerk.install.jamfproswitcher</string>
     <key>Input</key>
     <dict>
 			<key>INSTALL_DESTINATION</key>
@@ -14,7 +14,7 @@
     <key>MinimumVersion</key>
     <string>0.6.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.apfelwerk.download.oni</string>
+    <string>com.github.apfelwerk.download.jamfproswitcher</string>
     <key>Process</key>
     <array>
         <dict>
@@ -28,7 +28,7 @@
 							<array>
 								<dict>
 									<key>source_item</key>
-									<string>Oni.app</string>
+									<string>Jamf Pro Switcher.app</string>
 									<key>destination_path</key>
 									<string>%INSTALL_DESTINATION%</string>
 									<key>user</key>
