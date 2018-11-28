@@ -17,62 +17,15 @@
     <string>com.github.apfelwerk.download.Overkill</string>
     <key>Process</key>
     <array>
-        <dict>
-          <key>Processor</key>
-          <string>PkgRootCreator</string>
-          <key>Arguments</key>
-          <dict>
-            <key>pkgroot</key>
-            <string>%RECIPE_CACHE_DIR%/pkgroot</string>
-            <key>pkgdirs</key>
-            <dict>
-              <key>Applications</key>
-              <string>0755</string>
-            </dict>
-          </dict>
-        </dict>
 				<dict>
 					<key>Processor</key>
-					<string>FileMover</string>
+					<string>AppPkgCreator</string>
 					<key>Arguments</key>
 					<dict>
-						<key>source</key>
+						<key>app_path</key>
 						<string>%RECIPE_CACHE_DIR%/unarchived/Overkill.app</string>
-						<key>target</key>
-						<string>%pkgroot%/Applications/Overkill.app</string>
 					</dict>
 				</dict>
-        <dict>
-          <key>Processor</key>
-          <string>PkgCreator</string>
-          <key>Arguments</key>
-          <dict>
-            <key>pkgname</key>
-            <string>%NAME%</string>
-            <key>pkg_request</key>
-            <dict>
-              <key>pkgdir</key>
-              <string>%RECIPE_CACHE_DIR%</string>
-              <key>id</key>
-              <string>com.krausefx.pkg.Overkill</string>
-              <key>options</key>
-              <string>purge_ds_store</string>
-              <key>version</key>
-              <string>%version%</string>
-              <key>chown</key>
-              <array>
-                <dict>
-                  <key>path</key>
-                  <string>Applications</string>
-                  <key>user</key>
-                  <string>root</string>
-                  <key>group</key>
-                  <string>admin</string>
-                </dict>
-              </array>
-            </dict>
-          </dict>
-        </dict>
         <dict>
           <key>Processor</key>
           <string>PathDeleter</string>
@@ -83,7 +36,6 @@
             <key>path_list</key>
             <array>
 							<string>%RECIPE_CACHE_DIR%/unarchived</string>
-							<string>%pkgroot%</string>
 						</array>
           </dict>
         </dict>
