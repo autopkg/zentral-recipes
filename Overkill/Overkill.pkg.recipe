@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and packages the latest version of 1Password Command Line Interface. The resulting package installs to /usr/local/op. You can verify the installation via e.g. gpg or keybase since the op.sig is preserved.</string>
+    <string>Downloads and packages the latest version of Overkill. Resulting pkg will install to /Applications/Overkill.app</string>
     <key>Identifier</key>
     <string>com.github.apfelwerk.pkg.Overkill</string>
     <key>Input</key>
