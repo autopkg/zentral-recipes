@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+		<string>Downloads the latest version of Overkill, extracts it and imports the app to Munki</string>
+    <key>Identifier</key>
+    <string>com.github.apfelwerk.munki.Overkill</string>
+    <key>ParentRecipe</key>
+    <string>com.github.apfelwerk.download.Overkill</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Overkill</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/%NAME%</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Productivity</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>KrauseFx</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+						<string>Stop iTunes from opening when you connect your iPhone.</string>
+            <key>display_name</key>
+            <string>Overkill</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+        </dict>
+    </dict>
+    <key>Process</key>
+    <array>
+				<dict>
+					<key>Processor</key>
+					<string>DmgCreator</string>
+					<key>Arguments</key>
+					<dict>
+						<key>dmg_root</key>
+						<string>%RECIPE_CACHE_DIR%/unarchived/Overkill.app</string>
+						<key>dmg_path</key>
+						<string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+					</dict>
+				</dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>PathDeleter</string>
+          <key>Comment</key>
+          <string>Cleaning up</string>
+          <key>Arguments</key>
+          <dict>
+            <key>path_list</key>
+            <array>
+							<string>%RECIPE_CACHE_DIR%/unarchived</string>
+						</array>
+          </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
