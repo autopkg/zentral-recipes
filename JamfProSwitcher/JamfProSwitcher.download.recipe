@@ -13,7 +13,7 @@
         <key>NAME</key>
         <string>jamfproswitcher</string>
 				<key>DL_REGEX</key>
-				<string>Jamf(\.)*Pro(\.)*Switcher(\.)*[\d+].[\d+](\.[\d+])*.dmg</string>
+				<string>JamfProSwitcher(\-)*[\d+].[\d+](\.[\d+])*.dmg</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
