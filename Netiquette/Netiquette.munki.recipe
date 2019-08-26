@@ -9,7 +9,7 @@
     <key>ParentRecipe</key>
     <string>com.github.zentralpro.pkg.netiquette</string>
     <key>MinimumVersion</key>
-    <string>0.6.0</string>
+    <string>1.0.0</string>
     <key>Input</key>
     <dict>
         <key>MUNKI_NAME</key>

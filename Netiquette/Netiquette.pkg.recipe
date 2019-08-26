@@ -12,7 +12,7 @@
       <string>Netiquette</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.6.0</string>
+    <string>1.0.0</string>
     <key>ParentRecipe</key>
     <string>com.github.zentralpro.download.netiquette</string>
     <key>Process</key>
