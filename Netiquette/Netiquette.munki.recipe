@@ -19,7 +19,7 @@
         <key>MUNKI_CATEGORY</key>
         <string>Utilities</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>Digita Security</string>
+        <string>Objective-See</string>
         <key>DISPLAY_NAME</key>
         <string>Netiquette</string>
         <key>pkginfo</key>
