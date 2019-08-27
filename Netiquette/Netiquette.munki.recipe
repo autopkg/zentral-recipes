@@ -21,7 +21,7 @@
         <key>MUNKI_DEVELOPER</key>
         <string>Digita Security</string>
         <key>DISPLAY_NAME</key>
-        <string>UXProtect</string>
+        <string>Netiquette</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
