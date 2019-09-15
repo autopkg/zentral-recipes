@@ -19,7 +19,7 @@
         <key>MUNKI_CATEGORY</key>
         <string>Utilities</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>Objective-See</string>
+        <string>Proxyman Inc</string>
         <key>DISPLAY_NAME</key>
         <string>Proxyman</string>
         <key>pkginfo</key>
