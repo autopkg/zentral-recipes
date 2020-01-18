@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads and packages the latest version of ProcessMonitor. The resulting package installs to /Applications/ProcessMonitor.app.</string>
+    <key>Identifier</key>
+    <string>com.github.zentralpro.pkg.processmonitor</string>
+    <key>Input</key>
+    <dict>
+      <key>NAME</key>
+      <string>ProcessMonitor</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.zentralpro.download.processmonitor</string>
+    <key>Process</key>
+    <array>
+        <dict>
+          <key>Processor</key>
+          <string>AppPkgCreator</string>
+          <key>Arguments</key>
+          <dict>
+            <key>app_path</key>
+            <string>%RECIPE_CACHE_DIR%/unpacked/ProcessMonitor.app</string>
+          </dict>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>PathDeleter</string>
+          <key>Comment</key>
+          <string>Cleaning up</string>
+          <key>Arguments</key>
+          <dict>
+            <key>path_list</key>
+            <string>%RECIPE_CACHE_DIR%/unpacked</string>
+          </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

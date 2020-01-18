@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Download and unpack the latest version of ProcessMonitor, Leveraging Apple's new Endpoint Security Framework, this utility monitors process creations and terminations, providing detailed information about such events.</string>
+    <key>Identifier</key>
+    <string>com.github.zentralpro.download.processmonitor</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>ProcessMonitor</string>
+        <key>SEARCH_URL</key>
+        <string>https://objective-see.com/products/utilities.html#ProcessMonitor</string>
+        <key>RE_PATTERN</key>
+        <string>(?P&lt;dl_filename&gt;(ProcessMonitor_(\d*\.?)*).zip)</string>
+        <key>DL_URL</key>
+        <string>https://bitbucket.org/objective-see/deploy/downloads/</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+          <key>Processor</key>
+          <string>URLTextSearcher</string>
+          <key>Arguments</key>
+          <dict>
+            <key>url</key>
+            <string>%SEARCH_URL%</string>
+            <key>re_pattern</key>
+            <string>%RE_PATTERN%</string>
+            <key>result_output_var_name</key>
+            <string>dl_filename</string>
+          </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%DL_URL%%dl_filename%</string>
+                <key>CHECK_FILESIZE_ONLY</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Unarchiver</string>
+            <key>Arguments</key>
+            <dict>
+                <key>archive_path</key>
+                <string>%pathname%</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpacked/</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpacked/ProcessMonitor.app</string>
+                <key>requirement</key>
+                <string>anchor apple generic and identifier "com.objective-see.processmonitor" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = VBG97UB4TA)</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
