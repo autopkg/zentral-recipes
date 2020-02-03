@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Download Cutter for macOS, a free and Open Source Reverse Engineering Platform powered by radare2r.</string>
+    <key>Identifier</key>
+    <string>com.github.zentralpro.download.cutter</string>
+    <key>Input</key>
+    <dict>
+        <key>INCLUDE_PRERELEASES</key>
+        <string></string>
+        <key>NAME</key>
+        <string>Cutter</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>GitHubReleasesInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+              <key>include_prereleases</key>
+              <string>%INCLUDE_PRERELEASES%</string>
+              <key>github_repo</key>
+              <string>radareorg/cutter</string>
+              <key>asset_regex</key>
+              <string>Cutter-v[\d+].\d{0,2}.\d{0,2}-x64.macOS.dmg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>%NAME%-%version%.dmg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>
