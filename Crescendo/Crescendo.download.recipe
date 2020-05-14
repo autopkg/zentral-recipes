@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Download Crescendo a swift based, real time event viewer for macOS. It utilizes Apple's Endpoint Security Framework.</string>
+    <key>Identifier</key>
+    <string>com.github.zentralpro.download.crescendo</string>
+    <key>Input</key>
+    <dict>
+        <key>INCLUDE_PRERELEASES</key>
+        <string></string>
+        <key>NAME</key>
+        <string>Crescendo</string>
+        <key>DL_REGEX</key>
+	    <string>Crescendo.app.zip</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>GitHubReleasesInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+              <key>include_prereleases</key>
+              <string>%INCLUDE_PRERELEASES%</string>
+              <key>github_repo</key>
+              <string>SuprHackerSteve/Crescendo</string>
+              <key>asset_regex</key>
+			  <string>%DL_REGEX%</string>
+            </dict>
+            </dict>
+            <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>%NAME%-%version%.zip</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+			<dict>
+				<key>Processor</key>
+				<string>Unarchiver</string>
+				<key>Arguments</key>
+				<dict>
+					<key>archive_path</key>
+					<string>%pathname%</string>
+					<key>purge_destination</key>
+					<true/>
+					<key>destination_path</key>
+					<string>%RECIPE_CACHE_DIR%/unarchived/</string>
+				</dict>
+			</dict>
+			<dict>
+          <key>Processor</key>
+          <string>CodeSignatureVerifier</string>
+          <key>Arguments</key>
+          <dict>
+            <key>input_path</key>
+            <string>%RECIPE_CACHE_DIR%/unarchived/Crescendo.app</string>
+            <key>requirement</key>
+						<string>anchor apple generic and identifier "com.suprhackersteve.crescendo" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = AD94776VX5)</string>
+          </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
