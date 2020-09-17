@@ -11,16 +11,36 @@
     <key>MinimumVersion</key>
     <string>1.0.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.zentralpro.pkg.nova</string>
+    <string>com.github.zentralpro.download.nova</string>
     <key>Process</key>
     <array>
         <dict>
             <key>Processor</key>
-            <string>Installer</string>
+            <string>DmgCreator</string>
             <key>Arguments</key>
             <dict>
-                <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+                <key>dmg_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+                <key>dmg_root</key>
+                <string>%RECIPE_CACHE_DIR%/unarchived</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>InstallFromDMG</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_path</key>
+                <string>%dmg_path%</string>
+                <key>items_to_copy</key>
+                <array>
+                    <dict>
+                        <key>destination_path</key>
+                        <string>/Applications</string>
+                        <key>source_item</key>
+                        <string>Nova.app</string>
+                    </dict>
+                </array>
             </dict>
         </dict>
     </array>
