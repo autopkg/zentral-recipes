@@ -12,8 +12,6 @@
     <dict>
         <key>NAME</key>
         <string>Nova</string>
-        <key>DOWNLOAD_URL</key>
-        <string>https://panic-c157.kxcdn.com/nova/Nova%201.0.zip</string>
     </dict>
     <key>MinimumVersion</key>
     <string>1.0.0</string>
@@ -24,10 +22,10 @@
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
-                <key>url</key>
-                <string>%DOWNLOAD_URL%</string>
                 <key>filename</key>
                 <string>%NAME%.zip</string>
+                <key>url</key>
+                <string>https://download.panic.com/nova/nova-latest.zip</string>
             </dict>
         </dict>
         <dict>
