@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and imports to Munki the latest version of Nova, a native Mac code editor created by Panic Inc.</string> 
+    <string>Downloads, packages and imports to Munki the latest version of Nova, a native Mac code editor created by Panic Inc.</string>
     <key>Identifier</key>
     <string>com.github.zentralpro.munki.nova</string>
     <key>ParentRecipe</key>
-    <string>com.github.zentralpro.pkg.nova</string>
+    <string>com.github.zentralpro.download.nova</string>
     <key>MinimumVersion</key>
     <string>1.0.0</string>
     <key>Input</key>
@@ -46,13 +46,24 @@
     <array>
         <dict>
             <key>Processor</key>
+            <string>DmgCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+                <key>dmg_root</key>
+                <string>%RECIPE_CACHE_DIR%/unarchived</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>MunkiImporter</string>
             <key>Arguments</key>
             <dict>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
                 <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+                <string>%dmg_path%</string>
             </dict>
         </dict>
     </array>
