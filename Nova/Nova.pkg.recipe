@@ -8,8 +8,8 @@
     <string>com.github.zentralpro.pkg.nova</string>
     <key>Input</key>
     <dict>
-      <key>NAME</key>
-      <string>Nova</string>
+        <key>NAME</key>
+        <string>Nova</string>
     </dict>
     <key>MinimumVersion</key>
     <string>1.0.0</string>
@@ -71,8 +71,10 @@
                     <string>%version%</string>
                     <key>id</key>
                     <string>%bundleid%</string>
-                     <key>options</key>
+                    <key>options</key>
                     <string>purge_ds_store</string>
+                    <key>scripts</key>
+                    <string>scripts</string>
                     <key>chown</key>
                     <array>
                         <dict>
