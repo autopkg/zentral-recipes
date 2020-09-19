@@ -40,6 +40,27 @@
             <string>%MUNKI_CATEGORY%</string>
             <key>developer</key>
             <string>%MUNKI_DEVELOPER%</string>
+            <key>postinstall_script</key>
+            <string>#!/bin/bash
+
+# Command line tool source and destination paths.
+CMD_TOOL_SRC="/Applications/Nova.app/Contents/SharedSupport/nova"
+CMD_TOOL_DST="/usr/local/bin"
+
+if [[ -d "$CMD_TOOL_DST" ]]; then
+    # Remove old tool, if it exists.
+    rm -f "$CMD_TOOL_DST/nova"
+else
+    # Create destination folder, if it doesn't exist.
+    mkdir -p "$CMD_TOOL_DST"
+fi
+
+cp "$CMD_TOOL_SRC" "$CMD_TOOL_DST/nova"
+</string>
+            <key>postuninstall_script</key>
+            <string>#!/bin/bash
+rm -f "/usr/local/bin/nova"
+</string>
         </dict>
     </dict>
     <key>Process</key>
