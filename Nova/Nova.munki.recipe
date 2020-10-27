@@ -59,6 +59,8 @@ cp "$CMD_TOOL_SRC" "$CMD_TOOL_DST/nova"
 </string>
             <key>postuninstall_script</key>
             <string>#!/bin/bash
+rm -f "/Library/LaunchDaemons/com.panic.NovaPrivilegedHelper.plist"
+rm -f "/Library/PrivilegedHelperTools/com.panic.NovaPrivilegedHelper"
 rm -f "/usr/local/bin/nova"
 </string>
         </dict>
