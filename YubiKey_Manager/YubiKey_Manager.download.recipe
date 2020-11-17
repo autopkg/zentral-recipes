@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-		<string>Download the latest version of YubiKey Manager from Yubico</string>
+        <string>Download the latest version of YubiKey Manager from Yubico</string>
     <key>Identifier</key>
     <string>com.github.apfelwerk.download.yubikey_manager</string>
     <key>MinimumVersion</key>
@@ -13,9 +13,9 @@
         <key>NAME</key>
         <string>YubiKey Manager</string>
         <key>URL</key>
-				<string>https://developers.yubico.com/yubikey-manager-qt/Releases/</string>
-				<key>RE_PATTERN</key>
-				<string>(?P&lt;dl_filename&gt;yubikey-manager-qt-((\d*\.?)*)-mac.pkg)</string>
+        <string>https://developers.yubico.com/yubikey-manager-qt/Releases/</string>
+        <key>RE_PATTERN</key>
+        <string>(?P&lt;dl_filename&gt;yubikey-manager-qt-((\d*\.?)*)-mac.pkg)</string>
     </dict>
     <key>Process</key>
     <array>
@@ -28,7 +28,7 @@
             <string>%URL%</string>
             <key>re_pattern</key>
             <string>%RE_PATTERN%</string>
-						<key>result_output_var_name</key>
+                <key>result_output_var_name</key>
             <string>dl_filename</string>
           </dict>
         </dict>
@@ -45,21 +45,69 @@
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
         </dict>
-				<dict>
-					<key>Processor</key>
-					<string>CodeSignatureVerifier</string>
-					<key>Arguments</key>
-					<dict>
-						<key>input_path</key>
-						<string>%pathname%</string>
-						<key>expected_authority_names</key>
-						<array>
-								<string>Developer ID Installer: Yubico Limited (LQA3CS5MM7)</string>
-								<string>Developer ID Certification Authority</string>
-								<string>Apple Root CA</string>
-						</array>
-					</dict>
-				</dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Yubico Limited (LQA3CS5MM7)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/</string>
+                <key>flat_pkg_path</key>
+                <string>%pathname%</string>
+                <key>purge_destination</key>
+                <string>true</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkgroot</key>
+                <string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
+                <key>pkgdirs</key>
+                <dict/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
+                <key>pkg_payload_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/com.yubico.ykman.pkg/Payload</string>
+                <key>purge_destination</key>
+                <string>true</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Versioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_plist_path</key>
+                <string>%RECIPE_CACHE_DIR%/application_payload/Applications/YubiKey Manager.app/Contents/Info.plist</string>
+                <key>plist_version_key</key>
+                <string>CFBundleVersion</string>
+            </dict>
+        </dict>
     </array>
 </dict>
 </plist>
