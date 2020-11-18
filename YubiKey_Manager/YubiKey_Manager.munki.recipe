@@ -4,7 +4,7 @@
 <dict>
     <key>Description</key>
     <string>Download and import to Munki the latest version of YubiKey Manager from Yubico</string>
-		<key>Identifier</key>
+        <key>Identifier</key>
     <string>com.github.apfelwerk.munki.yubikey_manager</string>
     <key>ParentRecipe</key>
     <string>com.github.apfelwerk.download.yubikey_manager</string>
@@ -30,7 +30,7 @@
             </array>
             <key>description</key>
             <string>Use the YubiKey Manager to configure FIDO2 and OTP functionality on your YubiKey on Windows, macOS, and Linux operating systems. The tool works with any currently supported YubiKey. You can also use the tool to check the type and firmware of a YubiKey. In addition, you can use the extended settings to specify other features, such as to configure 3-second long touch.</string>
-						<key>display_name</key>
+                        <key>display_name</key>
             <string>%DISPLAY_NAME%</string>
             <key>name</key>
             <string>%MUNKI_NAME%</string>
@@ -46,6 +46,28 @@
     <array>
         <dict>
             <key>Processor</key>
+            <string>MunkiInstallsItemsCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>additional_pkginfo</key>
+                <dict>
+                    <key>version</key>
+                    <string>%version%</string>
+                </dict>
+                <key>faux_root</key>
+                <string>%RECIPE_CACHE_DIR%/application_payload</string>
+                <key>installs_item_paths</key>
+                <array>
+                    <string>/Applications/YubiKey Manager.app</string>
+                </array>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>MunkiImporter</string>
             <key>Arguments</key>
             <dict>
@@ -53,6 +75,20 @@
                 <string>%pathname%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
+                <key>version_comparison_key</key>
+                <string>CFBundleShortVersionString</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                <string>%RECIPE_CACHE_DIR%/application_payload/</string>
+                <string>%RECIPE_CACHE_DIR%/unpack</string>                              
+                </array>
             </dict>
         </dict>
     </array>
