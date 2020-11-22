@@ -15,7 +15,7 @@
         <key>URL</key>
         <string>https://developers.yubico.com/yubikey-manager-qt/Releases/</string>
         <key>RE_PATTERN</key>
-        <string>(?P&lt;dl_filename&gt;yubikey-manager-qt-((\d*\.?)*)-mac.pkg)</string>
+        <string>(?P&lt;dl_filename&gt;yubikey-manager-qt-((\d*\.?)*[a-z]?)-mac.pkg)</string>
     </dict>
     <key>Process</key>
     <array>
@@ -105,7 +105,7 @@
                 <key>input_plist_path</key>
                 <string>%RECIPE_CACHE_DIR%/application_payload/Applications/YubiKey Manager.app/Contents/Info.plist</string>
                 <key>plist_version_key</key>
-                <string>CFBundleVersion</string>
+                <string>CFBundleShortVersionString</string>
             </dict>
         </dict>
     </array>
