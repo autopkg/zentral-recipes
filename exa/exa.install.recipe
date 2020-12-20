@@ -3,18 +3,18 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and installs the latest version of dog, the command-line DNS client. The package will be installed to /usr/local/bin.</string>
+    <string>Downloads, packages and installs the latest version of exa, an improved file lister with more features and better defaults. It uses colours to distinguish file types and metadata. It knows about symlinks, extended attributes, and Git. And it’s small, fast, and just one single binary. The package will be installed to /usr/local/bin.</string>
     <key>Identifier</key>
-    <string>com.github.zentralpro.install.dog</string>
+    <string>com.github.zentralpro.install.exa</string>
     <key>Input</key>
     <dict>
 			<key>NAME</key>
-			<string>dog</string>
+			<string>exa</string>
 		</dict>
     <key>MinimumVersion</key>
     <string>1.0.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.zentralpro.pkg.dog</string>
+    <string>com.github.zentralpro.pkg.exa</string>
     <key>Process</key>
     <array>
         <dict>
