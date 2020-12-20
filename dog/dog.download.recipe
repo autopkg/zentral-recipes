@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Download dog, a command-line DNS client.</string>
+        <string>Download dog, a command-line DNS client. It has colourful output, supports the DNS-over-TLS and DNS-over-HTTPS protocols, and can emit JSON.</string>
         <key>Identifier</key>
         <string>com.github.zentralpro.download.dog</string>
         <key>Input</key>

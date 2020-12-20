@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Downloads and builds a package that installs dog a command-line DNS client. The resulting package installs to /usr/local/bin/dog</string>
+        <string>Downloads and builds a package that installs dog a command-line DNS client. It has colourful output, supports the DNS-over-TLS and DNS-over-HTTPS protocols, and can emit JSON. The resulting package installs to /usr/local/bin/dog</string>
         <key>Identifier</key>
         <string>com.github.zentralpro.pkg.dog</string>
         <key>Input</key>
