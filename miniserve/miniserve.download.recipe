@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTDPLIST1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Description</key>
+        <string>Download miniserve, a CLI tool to serve files and dirs over HTTP</string>
+        <key>Identifier</key>
+        <string>com.github.zentralpro.download.miniserve</string>
+        <key>Input</key>
+        <dict>
+            <key>INCLUDE_PRERELEASES</key>
+            <string></string>
+            <key>NAME</key>
+            <string>miniserve</string>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>1.0.0</string>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Processor</key>
+                <string>GitHubReleasesInfoProvider</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>include_prereleases</key>
+                    <string>%INCLUDE_PRERELEASES%</string>
+                    <key>github_repo</key>
+                    <string>svenstaro/miniserve</string>
+                    <key>asset_regex</key>
+                    <string>miniserve-v[\d+].\d{0,2}.\d{0,2}-macos-x86_64</string>
+                </dict>
+            </dict>
+            <dict>
+                <key>Processor</key>
+                <string>URLDownloader</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>filename</key>
+                    <string>%NAME%</string>
+                </dict>
+            </dict>
+            <dict>
+                <key>Processor</key>
+                <string>EndOfCheckPhase</string>
+            </dict>
+        </array>
+    </dict>
+</plist>
