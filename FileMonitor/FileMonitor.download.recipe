@@ -15,7 +15,7 @@
         <key>SEARCH_URL</key>
         <string>https://objective-see.com/products/utilities.html#FileMonitor</string>
         <key>RE_PATTERN</key>
-        <string>(?P&lt;dl_filename&gt;(FileMonitor_(?P&lt;version&gt;\d*\.?)*).zip)</string>
+        <string>(?P&lt;dl_filename&gt;FileMonitor_(?P&lt;version&gt;[\d\.]+).zip)</string>
         <key>DL_URL</key>
         <string>https://bitbucket.org/objective-see/deploy/downloads/</string>
     </dict>
