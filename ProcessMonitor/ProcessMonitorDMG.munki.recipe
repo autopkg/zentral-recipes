@@ -8,6 +8,8 @@
     <string>com.github.zentralpro.munki.processmonitordmg</string>
     <key>Input</key>
     <dict>
+        <key>APP_DESTINATION</key>
+        <string>/Applications/Utilities</string>
         <key>MUNKI_CATEGORY</key>
         <string>Security</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -54,6 +56,11 @@
         <dict>
             <key>Arguments</key>
             <dict>
+                <key>additional_makepkginfo_options</key>
+                <array>
+                    <string>--destinationpath</string>
+                    <string>%APP_DESTINATION%</string>
+                </array>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
                 <key>pkg_path</key>
