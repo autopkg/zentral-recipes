@@ -12,8 +12,8 @@
         <string></string>
         <key>NAME</key>
         <string>jamfproswitcher</string>
-				<key>DL_REGEX</key>
-				<string>JamfProSwitcher(\-)*[\d+].[\d+](\.[\d+])*.dmg</string>
+	<key>DL_REGEX</key>
+	<string>Jamf\.Pro\.Switcher\.(\-)*[\d+].[\d+](\.[\d+])*.dmg</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
@@ -29,7 +29,7 @@
               <key>github_repo</key>
               <string>ninxsoft/jamfproswitcher</string>
               <key>asset_regex</key>
-							<string>%DL_REGEX%</string>
+              <string>%DL_REGEX%</string>
             </dict>
         </dict>
         <dict>
@@ -45,7 +45,7 @@
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
         </dict>
-				<dict>
+	<dict>
           <key>Processor</key>
           <string>CodeSignatureVerifier</string>
           <key>Arguments</key>
@@ -53,7 +53,7 @@
             <key>input_path</key>
             <string>%pathname%/Jamf Pro Switcher.app</string>
             <key>requirement</key>
-						<string>anchor apple generic and identifier "com.ninxsoft.jamfproswitcher" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7K3HVCLV7Z")</string>
+            <string>anchor apple generic and identifier "com.ninxsoft.jamfproswitcher" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7K3HVCLV7Z")</string>
           </dict>
         </dict>
     </array>
