@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and imports to Munki the latest version of cue, a command line tool for CUE an open-source data validation language. The resulting package installs to /usr/local/bin/cue</string>
+    <string>Downloads, packages and installs the latest version of vector, a high-performance, highly reliable, observability data pipeline. Installs to /usr/local/bin/vector</string>
     <key>Identifier</key>
-    <string>com.github.zentralpro.munki.cue</string>
+    <string>com.github.zentralpro.munki.vector</string>
     <key>ParentRecipe</key>
-    <string>com.github.zentralpro.pkg.cue</string>
+    <string>com.github.zentralpro.pkg.vector</string>
     <key>MinimumVersion</key>
     <string>1.0.0</string>
     <key>Input</key>
@@ -15,13 +15,13 @@
         <key>MUNKI_NAME</key>
         <string>%NAME%</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps/%NAME%</string>
+        <string>utilities/%NAME%</string>
         <key>MUNKI_CATEGORY</key>
         <string>Utilities</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>cuelang</string>
+        <string>Timber</string>
         <key>DISPLAY_NAME</key>
-        <string>cue</string>
+        <string>vector</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -29,7 +29,7 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Installs cue, a command-line tool for CUE an open-source data validation language. The resulting package installs to /usr/local/bin/cue</string>
+            <string>Vector is a high-performance, highly reliable, observability data pipeline. Installs to /usr/local/bin/vector</string>
             <key>display_name</key>
             <string>%DISPLAY_NAME%</string>
             <key>name</key>
