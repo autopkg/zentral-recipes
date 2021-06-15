@@ -27,7 +27,7 @@
                     <key>github_repo</key>
                     <string>svenstaro/miniserve</string>
                     <key>asset_regex</key>
-                    <string>miniserve-v[\d+].\d{0,2}.\d{0,2}-macos-x86_64</string>
+                    <string>miniserve-v[\d+].\d{0,2}.\d{0,2}-x86_64-apple-darwin</string>
                 </dict>
             </dict>
             <dict>
