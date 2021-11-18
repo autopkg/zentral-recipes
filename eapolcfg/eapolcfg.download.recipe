@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>eapolcfg is a command line tool to configure EAP on macOS.</string>
+    <key>Identifier</key>
+    <string>com.github.zentralpro.download.eapolcfg</string>
+    <key>MinimumVersion</key>
+    <string>0.6.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>eapolcfg</string>
+        <key>URL</key>
+        <string>https://bitbucket.org/twocanoes/eapolcfg/downloads/</string>
+				<key>RE_PATTERN</key>
+				<string>(?P&lt;dl_filename&gt;eapolcfg-[0-9a-z\.]+\.zip)</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+          <key>Processor</key>
+          <string>URLTextSearcher</string>
+          <key>Arguments</key>
+          <dict>
+            <key>url</key>
+            <string>%URL%</string>
+            <key>re_pattern</key>
+            <string>%RE_PATTERN%</string>
+						<key>result_output_var_name</key>
+            <string>dl_filename</string>
+          </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%URL%%dl_filename%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+                <key>Arguments</key>
+                <dict>
+                    <key>archive_path</key>
+                    <string>%pathname%</string>
+                    <key>destination_path</key>
+                    <string>%RECIPE_CACHE_DIR%/unpack</string>
+                    <key>purge_destination</key>
+                    <true/>
+                </dict>
+                <key>Processor</key>
+                <string>Unarchiver</string>
+            </dict>
+    </array>
+</dict>
+</plist>
