@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download Brave browser for macOS and import it to Munki</string>
+    <string>Download yubiswitch and import it to Munki</string>
     <key>Identifier</key>
     <string>com.github.apfelwerk.munki.yubiswitch</string>
     <key>ParentRecipe</key>
