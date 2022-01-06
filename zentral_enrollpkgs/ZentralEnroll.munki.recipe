@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Imports the specified zentral enrollment pkg into Munki</string>
+	<key>Identifier</key>
+	<string>com.github.zentralpro.munki.zentral_enroll</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>ZentralOsqueryEnrollment</string>
+		<key>PREFIX</key>
+		<string>prod</string>
+		<key>token</key>
+		<string>OVERRIDE_ME</string>
+		<key>server_fqdn</key>
+		<string>zentral.example.com</string>
+		<key>enrollment</key>
+		<string>osquery</string>
+		<key>enrollment_id</key>
+		<string>1</string>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string></string>
+		<key>MUNKI_CATEGORY</key>
+		<string>IT Required</string>
+		<key>MUNKI_DEVELOPER</key>
+		<string>Our Organization</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>category</key>
+			<string>%MUNKI_CATEGORY%</string>
+			<key>description</key>
+			<string>Updated enrollment package for communicating with our zentral server</string>
+			<key>developer</key>
+			<string>%MUNKI_DEVELOPER%</string>
+			<key>display_name</key>
+			<string>Zentral Osquery Enrollment</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>unattended_install</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.6.1</string>
+	<key>ParentRecipe</key>
+	<string>com.github.zentralpro.download.zentral_enroll</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>MunkiPkginfoMerger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>additional_pkginfo</key>
+				<dict>
+					<key>version</key>
+					<string>%version%</string>
+					<key>installcheck_script</key>
+					<string>#!/usr/local/munki/munki-python
+import plistlib
+import sys
+
+
+def do_install_check():
+    with open("/usr/local/zentral/osquery/enrollment.plist", "rb") as f:
+        info = plistlib.load(f)
+    return (
+        info["enrollment"]["id"] == %enrollment_id%
+        and info["enrollment"]["version"] == %version%
+        and info["fqdn"] == %server_fqdn%
+    )
+
+
+if __name__ == "__main__":
+    try:
+        ok = do_install_check()
+    except Exception:
+        pass
+    else:
+        if ok:
+            sys.exit(1)</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
