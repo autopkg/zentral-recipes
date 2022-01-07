@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest osquery (or munki, optionally) enrollment pkg from Zentral.</string>
+	<key>Identifier</key>
+	<string>com.github.zentralpro.download.zentral_enroll</string>
+	<key>Input</key>
+	<dict>
+		<key>PREFIX</key>
+		<string>prod</string>
+		<key>token</key>
+		<string>OVERRIDE_ME</string>
+		<key>server_fqdn</key>
+		<string>zentral.example.com</string>
+		<key>enrollment</key>
+		<string>osquery</string>
+		<key>enrollment_id</key>
+		<string>1</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.5.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>ZentralEnrollPkgMetadataProvider</string>
+			<key>Arguments</key>
+			<dict>
+				<key>token</key>
+				<string>%token%</string>
+				<key>server_fqdn</key>
+				<string>%server_fqdn%</string>
+				<key>enrollment</key>
+				<string>%enrollment%</string>
+				<key>enrollment_id</key>
+				<string>%enrollment_id%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>filename</key>
+				<string>%PREFIX%-%enrollment%-%version%.pkg</string>
+				<key>request_headers</key>
+				<dict>
+					<key>Authorization</key>
+					<string>Token %token%</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+	</array>
+</dict>
+</plist>
