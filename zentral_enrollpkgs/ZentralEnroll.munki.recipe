@@ -8,8 +8,6 @@
 	<string>com.github.zentralpro.munki.zentral_enroll</string>
 	<key>Input</key>
 	<dict>
-		<key>NAME</key>
-		<string>ZentralOsqueryEnrollment</string>
 		<key>PREFIX</key>
 		<string>prod</string>
 		<key>token</key>
@@ -17,7 +15,9 @@
 		<key>server_fqdn</key>
 		<string>zentral.example.com</string>
 		<key>enrollment</key>
-		<string>osquery</string>
+		<string>Osquery</string>
+		<key>NAME</key>
+		<string>Zentral%enrollment%Enrollment</string>
 		<key>enrollment_id</key>
 		<string>1</string>
 		<key>MUNKI_REPO_SUBDIR</key>
@@ -39,7 +39,7 @@
 			<key>developer</key>
 			<string>%MUNKI_DEVELOPER%</string>
 			<key>display_name</key>
-			<string>Zentral Osquery Enrollment</string>
+			<string>Zentral %enrollment% Enrollment</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>unattended_install</key>

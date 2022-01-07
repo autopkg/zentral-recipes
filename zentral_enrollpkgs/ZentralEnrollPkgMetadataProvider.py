@@ -43,8 +43,8 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
         },
         "enrollment": {
             "required": False,
-            "description": "The name of the enrollment pkg to fetch. "
-            "Possible values are munki or osquery (default)",
+            "description": "The name of the enrollment pkg to fetch. Possible "
+            "values are Munki (capitalized pls) or Osquery (default)",
         },
         "enrollment_id": {
             "required": False,
@@ -77,9 +77,9 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
         server_url = "/".join(
             [
                 "https:/",
-                self.env.get("server_url"),
+                self.env.get("server_fqdn"),
                 "api",
-                enrollment,
+                enrollment.lower(),
                 "enrollments",
                 enrollment_id,
             ]
