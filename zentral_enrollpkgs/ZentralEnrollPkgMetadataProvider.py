@@ -53,6 +53,9 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
         },
     }
     output_variables = {
+        "lower_cased": {
+            "description": "Used in installcheck script and URL",
+        },
         "url": {
             "description": "URL to the pkg",
         },
@@ -73,13 +76,15 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
     def main(self):
         token = self.env.get("token")
         enrollment = self.env.get("enrollment", "osquery")
+        lower_cased = enrollment.lower()
+        self.env["lower_cased"] = lower_cased
         enrollment_id = self.env.get("enrollment_id", "1")
         server_url = "/".join(
             [
                 "https:/",
                 self.env.get("server_fqdn"),
                 "api",
-                enrollment.lower(),
+                lower_cased,
                 "enrollments",
                 enrollment_id,
             ]

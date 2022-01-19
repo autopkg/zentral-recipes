@@ -41,7 +41,7 @@
 			<key>display_name</key>
 			<string>Zentral %enrollment% Enrollment</string>
 			<key>name</key>
-			<string>%NAME%</string>
+			<string>%PREFIX%-%NAME%</string>
 			<key>unattended_install</key>
 			<true/>
 		</dict>
@@ -68,7 +68,7 @@ import sys
 
 
 def do_install_check():
-    with open("/usr/local/zentral/osquery/enrollment.plist", "rb") as f:
+    with open("/usr/local/zentral/%lower_cased%/enrollment.plist", "rb") as f:
         info = plistlib.load(f)
     return (
         info["enrollment"]["id"] == %enrollment_id%
