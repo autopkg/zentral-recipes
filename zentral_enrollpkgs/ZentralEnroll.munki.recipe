@@ -73,7 +73,7 @@ def do_install_check():
     return (
         info["enrollment"]["id"] == %enrollment_id%
         and info["enrollment"]["version"] == %version%
-        and info["fqdn"] == %server_fqdn%
+        and info["fqdn"] == "%server_fqdn%"
     )
 
 
