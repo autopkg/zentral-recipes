@@ -44,7 +44,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>filename</key>
-				<string>%PREFIX%-%enrollment%-%version%.pkg</string>
+				<string>%PREFIX%-%enrollment%-%configuration_slug%-%version%.pkg</string>
 				<key>request_headers</key>
 				<dict>
 					<key>Authorization</key>
