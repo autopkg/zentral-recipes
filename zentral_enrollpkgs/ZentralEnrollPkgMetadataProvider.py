@@ -18,8 +18,9 @@
 from __future__ import absolute_import
 
 import json
+import re
 
-from autopkglib import Processor, ProcessorError, URLGetter
+from autopkglib import ProcessorError, URLGetter
 
 __all__ = ["ZentralEnrollPkgMetadataProvider"]
 
@@ -62,45 +63,57 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
         "version": {
             "description": "Version as iterated on for the enrollment",
         },
+        "configuration_name": {
+            "description": "The name of the enrollment configuration",
+        },
+        "configuration_slug": {
+            "description": "A slug based on the name of the enrollment configuration",
+        },
     }
     description = __doc__
 
-    def assemble_curl_cmd(self, token, server_url):
+    def assemble_curl_cmd(self, token, url):
         """Assemble curl command and return it, as per example in core autopkg."""
         curl_cmd = self.prepare_curl_cmd()
         header = {"Authorization": f"Token {token}"}
         self.add_curl_headers(curl_cmd, header)
-        curl_cmd.append(server_url)
+        curl_cmd.append(url)
         return curl_cmd
 
     def main(self):
-        token = self.env.get("token")
-        enrollment = self.env.get("enrollment", "osquery")
-        lower_cased = enrollment.lower()
-        self.env["lower_cased"] = lower_cased
-        enrollment_id = self.env.get("enrollment_id", "1")
-        server_url = "/".join(
-            [
-                "https:/",
-                self.env.get("server_fqdn"),
-                "api",
-                lower_cased,
-                "enrollments",
-                enrollment_id,
-            ]
-        )
-        curl_cmd = self.assemble_curl_cmd(token, server_url)
-        response = self.download_with_curl(curl_cmd)
-        try:
-            json_data = json.loads(response)
-        except (ValueError, KeyError, TypeError) as e:
-            self.output(f"JSON response was: {response}")
-            raise ProcessorError(f"JSON format error: {e}")
+        token = self.env["token"]
+        self.env["lower_cased"] = self.env.get("enrollment", "osquery").lower()
+        server_base_url = "https://{server_fqdn}/api/{lower_cased}".format(**self.env)
 
-        self.env["url"] = json_data["package_download_url"]
-        self.output("Found URL {self.env['url']}")
-        self.env["version"] = str(json_data["version"])
-        self.output("Enrollment pkg version {self.env['version']}")
+        # enrollment → url, version
+        enrollment_id = self.env.get("enrollment_id", 1)
+        enrollment_url = f"{server_base_url}/enrollments/{enrollment_id}/"
+        enrollment_curl_cmd = self.assemble_curl_cmd(token, enrollment_url)
+        enrollment_response = self.download_with_curl(enrollment_curl_cmd)
+        try:
+            enrollment_data = json.loads(enrollment_response)
+        except (ValueError, KeyError, TypeError) as e:
+            self.output(f"Enrollment JSON response was: {enrollment_response}")
+            raise ProcessorError(f"Enrollment JSON format error: {e}")
+        self.env["url"] = enrollment_data["package_download_url"]
+        self.output(f"Found URL {self.env['url']}")
+        self.env["version"] = str(enrollment_data["version"])
+        self.output(f"Enrollment pkg version {self.env['version']}")
+
+        # configuration → configuration_slug
+        configuration_id = enrollment_data["configuration"]
+        configuration_url = f"{server_base_url}/configurations/{configuration_id}/"
+        configuration_curl_cmd = self.assemble_curl_cmd(token, configuration_url)
+        configuration_response = self.download_with_curl(configuration_curl_cmd)
+        try:
+            configuration_data = json.loads(configuration_response)
+        except (ValueError, KeyError, TypeError) as e:
+            self.output(f"Configuration JSON response was: {configuration_response}")
+            raise ProcessorError(f"Configuration JSON format error: {e}")
+        self.env["configuration_name"] = configuration_data["name"]
+        self.output(f"Configuration name: {self.env['configuration_name']}")
+        self.env["configuration_slug"] = re.sub(r'\W', '', configuration_data["name"])
+        self.output(f"Configuration slug: {self.env['configuration_slug']}")
 
 
 if __name__ == "__main__":

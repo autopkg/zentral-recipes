@@ -16,8 +16,6 @@
 		<string>zentral.example.com</string>
 		<key>enrollment</key>
 		<string>Osquery</string>
-		<key>NAME</key>
-		<string>Zentral%enrollment%Enrollment</string>
 		<key>enrollment_id</key>
 		<string>1</string>
 		<key>MUNKI_REPO_SUBDIR</key>
@@ -38,10 +36,6 @@
 			<string>Updated enrollment package for communicating with our zentral server</string>
 			<key>developer</key>
 			<string>%MUNKI_DEVELOPER%</string>
-			<key>display_name</key>
-			<string>Zentral %enrollment% Enrollment</string>
-			<key>name</key>
-			<string>%PREFIX%-%NAME%</string>
 			<key>unattended_install</key>
 			<true/>
 		</dict>
@@ -59,6 +53,10 @@
 			<dict>
 				<key>additional_pkginfo</key>
 				<dict>
+                                        <key>name</key>
+                                        <string>%PREFIX%-Zentral%enrollment%%configuration_slug%Enrollment</string>
+                                        <key>display_name</key>
+                                        <string>Zentral %enrollment% %configuration_name% Enrollment</string>
 					<key>version</key>
 					<string>%version%</string>
 					<key>installcheck_script</key>
