@@ -109,7 +109,7 @@
                 <string>%RECIPE_CACHE_DIR%/unpacked/</string>
                 <key>installs_item_paths</key>
                 <array>
-                    <string>/Library/PrivilegedHelperTools/ChromeRemoteDesktopHost.app/Contents/Info.plist</string>
+                    <string>/Library/PrivilegedHelperTools/ChromeRemoteDesktopHost.app</string>
                 </array>
                 <key>version_comparison_key</key>
                 <string>CFBundleShortVersionString</string>
