@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTDPLIST1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Description</key>
+        <string>Download swiftDialog, an admin utility app for macOS 11+ written in SwiftUI that displays a popup dialog, displaying the content to your users that you want to display.</string>
+        <key>Identifier</key>
+        <string>com.github.zentralpro.download.swiftDialog</string>
+        <key>Input</key>
+        <dict>
+            <key>INCLUDE_PRERELEASES</key>
+            <string></string>
+            <key>NAME</key>
+            <string>swiftDialog</string>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>1.0.0</string>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Processor</key>
+                <string>GitHubReleasesInfoProvider</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>include_prereleases</key>
+                    <string>%INCLUDE_PRERELEASES%</string>
+                    <key>github_repo</key>
+                    <string>bartreardon/swiftDialog</string>
+                    <key>asset_regex</key>
+                    <string>dialog-[\d+].\d{0,2}.\d{0,2}.pkg|swiftDialog-[\d+].\d{0,2}.\d{0,2}.pkg</string>
+                </dict>
+            </dict>
+            <dict>
+                <key>Processor</key>
+                <string>URLDownloader</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>filename</key>
+                    <string>%NAME%-%version%.pkg</string>
+                </dict>
+            </dict>
+            <dict>
+                <key>Processor</key>
+                <string>EndOfCheckPhase</string>
+            </dict>
+        </array>
+    </dict>
+</plist>
