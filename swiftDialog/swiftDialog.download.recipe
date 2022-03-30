@@ -27,7 +27,7 @@
                     <key>github_repo</key>
                     <string>bartreardon/swiftDialog</string>
                     <key>asset_regex</key>
-                    <string>dialog-[\d+].\d{0,2}.\d{0,2}.pkg|swiftDialog-[\d+].\d{0,2}.\d{0,2}.pkg</string>
+                    <string>(^d|swiftD)ialog-[\d+].\d{0,2}.\d{0,2}(\d[-s]?)\d{0,4}.pkg</string>
                 </dict>
             </dict>
             <dict>
