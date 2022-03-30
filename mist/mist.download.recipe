@@ -26,8 +26,6 @@
                     <string>%INCLUDE_PRERELEASES%</string>
                     <key>github_repo</key>
                     <string>ninxsoft/Mist</string>
-                    <key>asset_regex</key>
-                    <string>Mist.[\d+].\d{0,2}.pkg</string>
                 </dict>
             </dict>
             <dict>
