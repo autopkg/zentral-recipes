@@ -12,35 +12,29 @@
     <dict>
         <key>NAME</key>
         <string>Netiquette</string>
-        <key>SEARCH_URL</key>
-        <string>https://objective-see.com/products/netiquette.html</string>
-        <key>RE_PATTERN</key>
-        <string>(?P&lt;dl_filename&gt;(Netiquette_(\d*\.?)*).zip)</string>
-        <key>DL_URL</key>
-        <string>https://bitbucket.org/objective-see/deploy/downloads/</string>
+        <key>GITHUB_REPO</key>
+        <string>objective-see/Netiquette</string>
     </dict>
     <key>Process</key>
     <array>
         <dict>
           <key>Processor</key>
-          <string>URLTextSearcher</string>
-          <key>Arguments</key>
-          <dict>
-            <key>url</key>
-            <string>%SEARCH_URL%</string>
-            <key>re_pattern</key>
-            <string>%RE_PATTERN%</string>
-            <key>result_output_var_name</key>
-            <string>dl_filename</string>
-          </dict>
+          <string>GitHubReleasesInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+              <key>include_prereleases</key>
+              <string>%INCLUDE_PRERELEASES%</string>
+              <key>github_repo</key>
+              <string>%GITHUB_REPO%</string>
+              <key>asset_regex</key>
+              <string>Netiquette_[\d+?]{1,}.|_[\d+?]{1,}.|_[\d+?]{1,}.zip</string>
+        </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
-                <key>url</key>
-                <string>%DL_URL%%dl_filename%</string>
                 <key>CHECK_FILESIZE_ONLY</key>
                 <true/>
             </dict>
