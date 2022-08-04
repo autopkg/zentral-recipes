@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/local/autopkg/python
 #
 # Copyright 2022 Allister Banks, with parts/format borrowed from Hannes and Zack Thompson
 # (hjuutilainen and mlbz521)
