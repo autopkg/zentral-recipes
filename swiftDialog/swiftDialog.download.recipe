@@ -3,15 +3,15 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Download Mist, a command-line tool that automatically generates macOS Installer Disk Images and Packages.</string>
+        <string>Download swiftDialog, an admin utility app for macOS 11+ written in SwiftUI that displays a popup dialog, displaying the content to your users that you want to display.</string>
         <key>Identifier</key>
-        <string>com.github.zentralpro.download.mist</string>
+        <string>com.github.zentralpro.download.swiftDialog</string>
         <key>Input</key>
         <dict>
             <key>INCLUDE_PRERELEASES</key>
             <string></string>
             <key>NAME</key>
-            <string>mist</string>
+            <string>swiftDialog</string>
         </dict>
         <key>MinimumVersion</key>
         <string>1.0.0</string>
@@ -25,7 +25,9 @@
                     <key>include_prereleases</key>
                     <string>%INCLUDE_PRERELEASES%</string>
                     <key>github_repo</key>
-                    <string>ninxsoft/Mist</string>
+                    <string>bartreardon/swiftDialog</string>
+                    <key>asset_regex</key>
+                    <string>(^d|swiftD)ialog-[\d+].\d{0,2}.\d{0,2}(\d[-s]?)\d{0,4}.pkg</string>
                 </dict>
             </dict>
             <dict>
@@ -42,20 +44,20 @@
                 <string>EndOfCheckPhase</string>
             </dict>
             <dict>
-					<key>Processor</key>
-					<string>CodeSignatureVerifier</string>
-					<key>Arguments</key>
-					<dict>
-						<key>input_path</key>
-						<string>%pathname%</string>
-						<key>expected_authority_names</key>
-						<array>
-								<string>Developer ID Installer: Nindi Gill (7K3HVCLV7Z)</string>
-								<string>Developer ID Certification Authority</string>
-								<string>Apple Root CA</string>
-						</array>
-					</dict>
-				</dict>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: Commonwealth Scientific and Industrial Research Organisation (PWA5E9TQ59)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+		</dict>
         </array>
     </dict>
 </plist>
