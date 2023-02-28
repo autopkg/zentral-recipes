@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Download and unpack the latest version of LanguageTool Desktop for macOS, a macOS app for advanced grammar, spelling, and style suggestions in all your favorite writing apps.</string>
+    <key>Identifier</key>
+    <string>com.github.zentralpro.download.LanguageToolDesktop</string>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>LanguageTool for Desktop</string>
+        <key>DOWNLOAD_URL</key>
+        <string>https://languagetool.org/download/mac-app/LanguageToolDesktop-latest.dmg</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%DOWNLOAD_URL%</string>
+                <key>filename</key>
+                <string>%NAME%.dmg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/LanguageTool for Desktop.app</string>
+                <key>requirement</key>
+                <string>anchor apple generic and identifier "org.languagetool.desktop" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = N6PF5J2JR8)</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
