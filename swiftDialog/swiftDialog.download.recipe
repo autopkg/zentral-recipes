@@ -27,37 +27,32 @@
                     <key>github_repo</key>
                     <string>bartreardon/swiftDialog</string>
                     <key>asset_regex</key>
-                    <string>(^d|swiftD)ialog-[\d+].\d{0,2}.\d{0,2}(\d[-s]?)\d{0,4}.pkg</string>
+                    <string>.*\.pkg</string>
                 </dict>
             </dict>
             <dict>
                 <key>Processor</key>
                 <string>URLDownloader</string>
-                <key>Arguments</key>
-                <dict>
-                    <key>filename</key>
-                    <string>%NAME%-%version%.pkg</string>
-                </dict>
             </dict>
             <dict>
                 <key>Processor</key>
                 <string>EndOfCheckPhase</string>
             </dict>
             <dict>
-			<key>Arguments</key>
-			<dict>
-				<key>expected_authority_names</key>
-				<array>
-					<string>Developer ID Installer: Commonwealth Scientific and Industrial Research Organisation (PWA5E9TQ59)</string>
-					<string>Developer ID Certification Authority</string>
-					<string>Apple Root CA</string>
-				</array>
-				<key>input_path</key>
-				<string>%pathname%</string>
-			</dict>
-			<key>Processor</key>
-			<string>CodeSignatureVerifier</string>
-		</dict>
+            <key>Arguments</key>
+            <dict>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Commonwealth Scientific and Industrial Research Organisation (PWA5E9TQ59)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+                <key>input_path</key>
+                <string>%pathname%</string>
+            </dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+        </dict>
         </array>
     </dict>
 </plist>
