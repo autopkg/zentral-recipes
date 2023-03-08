@@ -3,15 +3,19 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and imports to Munki the latest version of Download Mist, a command-line tool that automatically generates macOS Installer Disk Images and Packages.</string> 
+    <string>Downloads, packages and imports to Munki the latest version of Download Mist, a command-line tool that automatically generates macOS Installer Disk Images and Packages.
+
+Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_version via MunkiInstallsItemsCreator. This requires a minimum AutoPkg version of 2.7 please update if you're not already running it.</string>
     <key>Identifier</key>
     <string>com.github.zentralpro.munki.mist</string>
     <key>ParentRecipe</key>
     <string>com.github.zentralpro.download.mist</string>
     <key>MinimumVersion</key>
-    <string>1.0.0</string>
+    <string>2.7</string>
     <key>Input</key>
     <dict>
+        <key>DERIVE_MIN_OS</key>
+        <string>YES</string>
         <key>MUNKI_NAME</key>
         <string>%NAME%</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -45,6 +49,51 @@
     <key>Process</key>
     <array>
         <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpacked</string>
+                <key>flat_pkg_path</key>
+                <string>%pathname%</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/payload</string>
+                <key>pkg_payload_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpacked/Payload</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>faux_root</key>
+                <string>%RECIPE_CACHE_DIR%/payload</string>
+                <key>installs_item_paths</key>
+                <array>
+                    <string>/Applications/Mist.app</string>
+                </array>
+                <key>derive_minimum_os_version</key>
+                <string>%DERIVE_MIN_OS%</string>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiInstallsItemsCreator</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+        </dict>
+        <dict>
             <key>Processor</key>
             <string>MunkiImporter</string>
             <key>Arguments</key>
@@ -54,6 +103,18 @@
                 <key>pkg_path</key>
                 <string>%pathname%</string>
             </dict>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/unpacked/</string>
+                    <string>%RECIPE_CACHE_DIR%/payload/</string>
+                </array>
+            </dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
         </dict>
     </array>
 </dict>
