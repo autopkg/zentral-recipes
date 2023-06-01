@@ -7,7 +7,7 @@
     <key>Identifier</key>
     <string>com.github.zentralpro.munki.proxyman</string>
     <key>ParentRecipe</key>
-    <string>com.github.zentralpro.pkg.proxyman</string>
+    <string>com.github.zentralpro.download.proxyman</string>
     <key>MinimumVersion</key>
     <string>1.0.0</string>
     <key>Input</key>
@@ -19,7 +19,7 @@
         <key>MUNKI_CATEGORY</key>
         <string>Utilities</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>Proxyman Inc</string>
+        <string>Proxyman LLC</string>
         <key>DISPLAY_NAME</key>
         <string>Proxyman</string>
         <key>pkginfo</key>
@@ -52,7 +52,7 @@
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
                 <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+                <string>%pathname%</string>
             </dict>
         </dict>
     </array>
