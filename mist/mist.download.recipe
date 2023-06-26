@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Download Mist, a command-line tool that automatically generates macOS Installer Disk Images and Packages.</string>
+        <string>Downloads Mist or Mist-cli, a GUI and command-line tool that automatically generates macOS Installer Disk Images and Packages.</string>
         <key>Identifier</key>
         <string>com.github.zentralpro.download.mist</string>
         <key>Input</key>
@@ -12,6 +12,8 @@
             <string></string>
             <key>NAME</key>
             <string>mist</string>
+	    <key>github_repo</key>
+            <string></string>             <!--ninxsoft/mist OR ninxsoft/mist-cli-->
         </dict>
         <key>MinimumVersion</key>
         <string>1.0.0</string>
@@ -25,7 +27,7 @@
                     <key>include_prereleases</key>
                     <string>%INCLUDE_PRERELEASES%</string>
                     <key>github_repo</key>
-                    <string>ninxsoft/Mist</string>
+                    <string>%github_repo%</string>
                     <key>asset_regex</key>
                     <string>^.*\.pkg$</string>
                 </dict>

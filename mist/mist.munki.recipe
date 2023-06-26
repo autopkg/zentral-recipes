@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and imports to Munki the latest version of Download Mist, a command-line tool that automatically generates macOS Installer Disk Images and Packages.
+    <string>Downloads, packages and imports to Munki the latest version of Download Mist or Mist-cli, an Application or command-line tool that automatically generates macOS Installer Disk Images and Packages.
 
 Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_version via MunkiInstallsItemsCreator. This requires a minimum AutoPkg version of 2.7 please update if you're not already running it.</string>
     <key>Identifier</key>
@@ -33,7 +33,7 @@ Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_versi
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Download Mist, a command-line tool that automatically generates macOS Installer Disk Images and Packages.. Details: https://github.com/ninxsoft/Mist </string>
+            <string>An Application or command-line tool that automatically generates macOS Installer Disk Images and Packages.. Details: https://github.com/ninxsoft/Mist and https://github.com/ninxsoft/Mist-cli </string>
             <key>display_name</key>
             <string>%DISPLAY_NAME%</string>
             <key>name</key>
@@ -82,6 +82,7 @@ Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_versi
                 <key>installs_item_paths</key>
                 <array>
                     <string>/Applications/Mist.app</string>
+		    <string>/usr/local/bin/mist</string>
                 </array>
                 <key>derive_minimum_os_version</key>
                 <string>%DERIVE_MIN_OS%</string>
