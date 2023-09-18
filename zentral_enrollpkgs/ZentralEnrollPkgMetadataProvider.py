@@ -55,15 +55,19 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
         },
     }
     output_variables = {
+        "token": {
+            "description": "Service account token with read access "
+            "to 'munki/osquery | enrollment | Can view enrollment'",
+        },
+        "server_fqdn": {
+            "description": "The top-level domain of your zentral "
+            "server without https:// or a trailing /",
+        },
         "lower_cased": {
             "description": "Used in installcheck script and URL",
         },
         "url": {
             "description": "URL to the pkg",
-        },
-        "server_fqdn": {
-            "description": "The top-level domain of your zentral "
-            "server without https:// or a trailing /",
         },
         "version": {
             "description": "Version as iterated on for the enrollment",
@@ -86,8 +90,8 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
         return curl_cmd
 
     def main(self):
-        token = getattr(os.environ, "ZTL_API_TOKEN", self.env["token"])
-        self.env["server_fqdn"] = getattr(os.environ, "ZTL_FQDN", self.env["server_fqdn"])
+        self.env["token"] = token = os.environ.get("ZTL_API_TOKEN", self.env["token"])
+        self.env["server_fqdn"] = os.environ.get("ZTL_FQDN", self.env["server_fqdn"])
         self.env["lower_cased"] = self.env.get("enrollment", "osquery").lower()
         server_base_url = "https://{server_fqdn}/api/{lower_cased}".format(**self.env)
 
