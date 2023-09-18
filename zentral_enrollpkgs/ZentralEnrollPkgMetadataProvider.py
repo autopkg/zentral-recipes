@@ -18,6 +18,7 @@
 from __future__ import absolute_import
 
 import json
+import os
 import re
 
 from autopkglib import ProcessorError, URLGetter
@@ -33,12 +34,12 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
 
     input_variables = {
         "token": {
-            "required": True,
+            "required": False,
             "description": "Service account token with read access "
             "to 'munki/osquery | enrollment | Can view enrollment'",
         },
         "server_fqdn": {
-            "required": True,
+            "required": False,
             "description": "The top-level domain of your zentral "
             "server without https:// or a trailing /",
         },
@@ -59,6 +60,10 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
         },
         "url": {
             "description": "URL to the pkg",
+        },
+        "server_fqdn": {
+            "description": "The top-level domain of your zentral "
+            "server without https:// or a trailing /",
         },
         "version": {
             "description": "Version as iterated on for the enrollment",
@@ -81,7 +86,8 @@ class ZentralEnrollPkgMetadataProvider(URLGetter):
         return curl_cmd
 
     def main(self):
-        token = self.env["token"]
+        token = getattr(os.environ, "ZTL_API_TOKEN", self.env["token"])
+        self.env["server_fqdn"] = getattr(os.environ, "ZTL_FQDN", self.env["server_fqdn"])
         self.env["lower_cased"] = self.env.get("enrollment", "osquery").lower()
         server_base_url = "https://{server_fqdn}/api/{lower_cased}".format(**self.env)
 
