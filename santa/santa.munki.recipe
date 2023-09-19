@@ -30,38 +30,6 @@
 			<true/>
 			<key>minimum_os_version</key>
 			<string>10.9.0</string>
-			<key>installcheck_script</key>
-			<string>#!/usr/local/munki/munki-python
-import plistlib
-import sys
-
-
-def do_install_check():
-    with open("/Library/SystemExtensions/db.plist", "rb") as f:
-        info = plistlib.load(f)
-    for extension in info.get("extensions", []):
-        try:
-            reference = extension["references"][0]
-            version = extension["bundleVersion"]["CFBundleShortVersionString"]
-        except KeyError:
-            continue
-        if (
-            reference["appIdentifier"] == "com.google.santa"
-            and reference["teamID"] == "EQHXZ8M8AV"
-            and version == "%version%"
-        ):
-            return extension["state"] == "activated_enabled"
-    return False
-
-
-if __name__ == "__main__":
-    try:
-        ok = do_install_check()
-    except Exception:
-        pass
-    else:
-        if ok:
-            sys.exit(1)</string>
 		</dict>
 	</dict>
 	<key>MinimumVersion</key>
@@ -110,6 +78,38 @@ if __name__ == "__main__":
 				<dict>
 					<key>version</key>
 					<string>%version%</string>
+				        <key>installcheck_script</key>
+				        <string>#!/usr/local/munki/munki-python
+import plistlib
+import sys
+
+
+def do_install_check():
+    with open("/Library/SystemExtensions/db.plist", "rb") as f:
+        info = plistlib.load(f)
+    for extension in info.get("extensions", []):
+        try:
+            reference = extension["references"][0]
+            version = extension["bundleVersion"]["CFBundleShortVersionString"]
+        except KeyError:
+            continue
+        if (
+            reference["appIdentifier"] == "com.google.santa"
+            and reference["teamID"] == "EQHXZ8M8AV"
+            and version == "%version%"
+        ):
+            return extension["state"] == "activated_enabled"
+    return False
+
+
+if __name__ == "__main__":
+    try:
+        ok = do_install_check()
+    except Exception:
+        pass
+    else:
+        if ok:
+            sys.exit(1)</string>
 				</dict>
 			</dict>
 		</dict>
