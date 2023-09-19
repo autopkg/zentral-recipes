@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the current version of santa from Github and imports into Munki.
+	</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.zentral.munki.santa</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>agents/santa</string>
+		<key>NAME</key>
+		<string>santa</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>blocking_applications</key>
+			<array>
+			</array>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>description</key>
+			<string>Santa keeps track of binaries or app bundles that are naughty and nice</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>unattended_install</key>
+			<true/>
+			<key>minimum_os_version</key>
+			<string>10.9.0</string>
+			<key>installcheck_script</key>
+			<string>#!/usr/local/munki/munki-python
+import plistlib
+import sys
+
+
+def do_install_check():
+    with open("/Library/SystemExtensions/db.plist", "rb") as f:
+        info = plistlib.load(f)
+    for extension in info.get("extensions", []):
+        try:
+            reference = extension["references"][0]
+            version = extension["bundleVersion"]["CFBundleShortVersionString"]
+        except KeyError:
+            continue
+        if (
+            reference["appIdentifier"] == "com.google.santa"
+            and reference["teamID"] == "EQHXZ8M8AV"
+            and version == "%version%"
+        ):
+            return extension["state"] == "activated_enabled"
+    return False
+
+
+if __name__ == "__main__":
+    try:
+        ok = do_install_check()
+    except Exception:
+        pass
+    else:
+        if ok:
+            sys.exit(1)</string>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.6.1</string>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.zentral.download.santa</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>FlatPkgUnpacker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/unpack</string>
+				<key>flat_pkg_path</key>
+				<string>%pathname%/santa*.pkg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgPayloadUnpacker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/payload</string>
+				<key>pkg_payload_path</key>
+				<string>%RECIPE_CACHE_DIR%/unpack/app.pkg/Payload</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%RECIPE_CACHE_DIR%/payload/Applications/Santa.app/Contents/Info.plist</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>MunkiPkginfoMerger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>additional_pkginfo</key>
+				<dict>
+					<key>version</key>
+					<string>%version%</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>MunkiInstallsItemsCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>faux_root</key>
+				<string>%RECIPE_CACHE_DIR%/payload</string>
+				<key>installs_item_paths</key>
+				<array>
+					<string>/Applications/Santa.app</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>MunkiPkginfoMerger</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+				<key>version_comparison_key</key>
+				<string>CFBundleVersion</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
