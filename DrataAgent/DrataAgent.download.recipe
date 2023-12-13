@@ -5,7 +5,7 @@
     <key>Description</key>
     <string>Downloads the current release version of the Drata Agent.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.DrataAgent</string>
+    <string>com.github.autopkg.zentral.download.DrataAgent</string>
     <key>Input</key>
     <dict>
       <key>NAME</key>
@@ -23,7 +23,7 @@
           <key>filename</key>
           <string>%NAME%.dmg</string>
           <key>url</key>
-          <string>%DOWNLOAD_URL%</string>
+          <string>https://downloads.drata.com/mac</string>
         </dict>
       </dict>
       <dict>

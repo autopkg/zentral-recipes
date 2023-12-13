@@ -5,7 +5,7 @@
     <key>Description</key>
     <string>Downloads the latest version of the Drata Agent and makes a pkg of it.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.zentral.install.DrataAgent</string>
+    <string>com.github.autopkg.zentral.pkg.DrataAgent</string>
     <key>Input</key>
     <dict>
       <key>NAME</key>
