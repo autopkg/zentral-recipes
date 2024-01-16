@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and imports to Munki the latest version of Download Mist, a Mac utility that automatically generates macOS Installer Disk Images and Packages.
+    <string>Downloads, packages and imports to Munki the latest version of Mist-cli, A Mac command-line tool that automatically downloads macOS Firmwares / Installers
 
 Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_version via MunkiInstallsItemsCreator. This requires a minimum AutoPkg version of 2.7 please update if you're not already running it.</string>
     <key>Identifier</key>
-    <string>com.github.zentralpro.munki.mist</string>
+    <string>com.github.zentralpro.munki.mist-cli</string>
     <key>ParentRecipe</key>
-    <string>com.github.zentralpro.download.mist</string>
+    <string>com.github.zentralpro.download.mist-cli</string>
     <key>MinimumVersion</key>
     <string>2.7</string>
     <key>Input</key>
@@ -25,7 +25,7 @@ Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_versi
         <key>MUNKI_DEVELOPER</key>
         <string>ninxsoft</string>
         <key>DISPLAY_NAME</key>
-        <string>mist</string>
+        <string>mist-cli</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -33,7 +33,7 @@ Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_versi
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>A Mac utility that automatically downloads macOS Firmwares / Installers. Details: https://github.com/ninxsoft/Mist </string>
+            <string>A Mac command-line tool that automatically downloads macOS Firmwares / Installers. Details: https://github.com/ninxsoft/Mist-cli </string>
             <key>display_name</key>
             <string>%DISPLAY_NAME%</string>
             <key>name</key>
@@ -81,7 +81,7 @@ Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_versi
                 <string>%RECIPE_CACHE_DIR%/payload</string>
                 <key>installs_item_paths</key>
                 <array>
-                    <string>/Applications/Mist.app</string>
+                    <string>/usr/local/bin/mist</string>
                 </array>
                 <key>derive_minimum_os_version</key>
                 <string>%DERIVE_MIN_OS%</string>
