@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and imports to Munki the latest version of Download Mist, a command-line tool that automatically generates macOS Installer Disk Images and Packages.
+    <string>Downloads and imports to Munki the latest version of Mist, a Mac utility that automatically downloads macOS Firmwares / Installers.
 
 Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_version via MunkiInstallsItemsCreator. This requires a minimum AutoPkg version of 2.7 please update if you're not already running it.</string>
     <key>Identifier</key>
@@ -32,18 +32,22 @@ Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_versi
             <array>
                 <string>testing</string>
             </array>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
             <key>description</key>
-            <string>Download Mist, a command-line tool that automatically generates macOS Installer Disk Images and Packages.. Details: https://github.com/ninxsoft/Mist </string>
+            <string>A Mac utility that automatically downloads macOS Firmwares / Installers.</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
             <key>display_name</key>
             <string>%DISPLAY_NAME%</string>
             <key>name</key>
             <string>%MUNKI_NAME%</string>
             <key>unattended_install</key>
             <true/>
-            <key>category</key>
-            <string>%MUNKI_CATEGORY%</string>
-            <key>developer</key>
-            <string>%MUNKI_DEVELOPER%</string>
+            <key>unattended_uninstall</key>
+            <true/>
+            <key>uninstallable</key>
+            <true/>
         </dict>
     </dict>
     <key>Process</key>
