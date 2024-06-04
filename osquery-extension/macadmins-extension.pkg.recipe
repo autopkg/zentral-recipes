@@ -3,7 +3,7 @@
 <plist version="1.0">
 	<dict>
 		<key>Description</key>
-		<string>Downloads and builds a package that installs macadmins-extension, an osquery extension for endpoint engineers. The resulting package installs to /usr/local/lib/osqery/extensions/macadmins-extension.ext</string>
+		<string>Downloads and builds a package that installs macadmins-extension, an osquery extension for endpoint engineers. The resulting package installs to /opt/osquery-extensions/macadmins_extension.ext</string>
 		<key>Identifier</key>
 		<string>com.github.zentralpro.pkg.macadmins-extension</string>
 		<key>Input</key>
@@ -26,16 +26,10 @@
 				<dict>
 					<key>pkgdirs</key>
 					<dict>
-						<key>usr</key>
+						<key>opt</key>
 						<string>0755</string>
-						<key>usr/local/</key>
+						<key>opt/osquery-extensions/</key>
 						<string>0755</string>
-						<key>usr/local/lib/</key>
-						<string>0755</string>
-						<key>usr/local/lib/osquery/</key>
-						<string>0775</string>
-						<key>usr/local/lib/osquery/extensions</key>
-						<string>0775</string>
 					</dict>
 					<key>pkgroot</key>
 					<string>%RECIPE_CACHE_DIR%/%NAME%</string>
@@ -49,7 +43,7 @@
 					<key>source_path</key>
 					<string>%RECIPE_CACHE_DIR%/unpack/macadmins_extension/Darwin/macadmins_extension.ext</string>
 					<key>destination_path</key>
-					<string>%pkgroot%/usr/local/lib/osquery/extensions/macadmins_extension.ext</string>
+					<string>%pkgroot%/opt/osquery-extensions/macadmins_extension.ext</string>
 					<key>overwrite</key>
 					<true/>
 				</dict>
@@ -69,7 +63,7 @@
 								<key>mode</key>
 								<string>0755</string>
 								<key>path</key>
-								<string>usr</string>
+								<string>opt</string>
 								<key>user</key>
 								<string>root</string>
 							</dict>

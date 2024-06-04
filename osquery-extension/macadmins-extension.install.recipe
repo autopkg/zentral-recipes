@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and installs the latest version of macadmins-extension, an osquery extension for endpoint engineers. installs to /usr/local/lib/osquery/extensions/macadmins-extension.ext</string>
+    <string>Downloads, packages and installs the latest version of macadmins-extension, an osquery extension for endpoint engineers. installs to/opt/osquery-extensions/macadmins_extension.ext</string>
     <key>Identifier</key>
     <string>com.github.zentralpro.install.macadmins-extension</string>
     <key>Input</key>

@@ -2,6 +2,6 @@ Recipe for macadmins osquery-extension - https://github.com/macadmins/osquery-ex
 
 ## Notes:
 
-This recipe will download from the latest release from GitHub https://github.com/macadmins/osquery-extension.
+This recipe will download from the latest release (v1.x) from GitHub https://github.com/macadmins/osquery-extension.
 
-It currently copies the Darwin binary and creates a pkg to deploy to `/usr/local/lib/osquery/extensions/macadmins_extension.ext`.
+It will copy the Darwin binary and create a pkg to deploy to the updated Osquery path `/opt/osquery-extensions/macadmins_extension.ext`.
