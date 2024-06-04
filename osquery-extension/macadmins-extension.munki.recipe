@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads, packages and imports to Munki the latest version of macadmins-extension, an osquery extension for endpoint engineers. The resulting package installs to /usr/local/lib/osqeuyr/extensions/macadmins-extension.ext.</string>
+	<string>Downloads, packages and imports to Munki the latest version of macadmins-extension, an osquery extension for endpoint engineers. The resulting package installs to /opt/osquery-extensions/macadmins_extension.ext.</string>
 	<key>Identifier</key>
 	<string>com.github.zentralpro.munki.macadmins-extension</string>
 	<key>Input</key>
@@ -54,7 +54,7 @@ Release Notes:
 				<string>%RECIPE_CACHE_DIR%/%NAME%-pkg</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/usr/local/lib/osqery/extensions/macadmins-extension.ext</string>
+					<string>/opt/osqery-extensions/macadmins-extension.ext</string>
 				</array>
 			</dict>
 			<key>Processor</key>
