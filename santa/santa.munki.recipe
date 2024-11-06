@@ -86,8 +86,8 @@ import sys
 
 def test_is_santa(extension):
     return (
-        extension.get("identifier") == "com.google.santa.daemon"
-        and extension.get("teamID") == "EQHXZ8M8AV"
+        extension.get("identifier") == "com.northpolesec.santa.daemon"
+        and extension.get("teamID") == "ZMCG7MLDV9"
     )
 
 
