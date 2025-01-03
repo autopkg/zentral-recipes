@@ -3,7 +3,14 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download Cutter for macOS, a free and Open Source Reverse Engineering Platform powered by radare2r.</string>
+    <string>Download Cutter for macOS, a free and Open Source Reverse Engineering Platform powered by Rizin.
+    
+Valid values for ARCH include:
+- "x86_64" (default, Intel)
+- "arm64" (Apple Silicon)
+
+Set INCLUDE_PRERELEASES to a non-empty string to download prereleases from GitHub.
+</string>
     <key>Identifier</key>
     <string>com.github.zentralpro.download.cutter</string>
     <key>Input</key>
@@ -12,6 +19,8 @@
         <string></string>
         <key>NAME</key>
         <string>Cutter</string>
+        <key>ARCH</key>
+        <string>x86_64</string>
     </dict>
     <key>MinimumVersion</key>
     <string>1.0.0</string>
@@ -25,9 +34,9 @@
               <key>include_prereleases</key>
               <string>%INCLUDE_PRERELEASES%</string>
               <key>github_repo</key>
-              <string>radareorg/cutter</string>
+              <string>rizinorg/cutter</string>
               <key>asset_regex</key>
-              <string>Cutter-v[\d+].\d{0,2}.\d{0,2}-x64.macOS.dmg</string>
+              <string>Cutter\-v[\d\.]+\-macOS-%ARCH%\.dmg</string>
             </dict>
         </dict>
         <dict>
@@ -42,6 +51,17 @@
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/Cutter.app</string>
+                <key>requirement</key>
+                <string>identifier "re.rizin.cutter" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7C89959B9X"</string>
+            </dict>
         </dict>
     </array>
 </dict>
