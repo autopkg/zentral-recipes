@@ -19,6 +19,15 @@
     </dict>
     <key>Process</key>
     <array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>warning_message</key>
+				<string>Yubico announced the End of Life of YubiKey Manager GUI on February 19, 2025, in line with Yubico’s End-of-Life policy (see https://www.yubico.com/support/download/yubikey-manager). YubiKey Manager GUI will reach its End of Life on February 19, 2026 (see https://www.yubico.com/support/terms-conditions/yubico-end-of-life-policy/eol-products). Yubico Authenticator is recommended as an alternative; a replacement recipe is available at com.github.Lotusshaney.download.YubicoAuthenticator.</string>
+			</dict>
+			<key>Processor</key>
+			<string>DeprecationWarning</string>
+		</dict>
         <dict>
           <key>Processor</key>
           <string>URLTextSearcher</string>
