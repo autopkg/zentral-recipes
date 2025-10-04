@@ -74,8 +74,6 @@
                         </array>
                         <key>id</key>
                         <string>com.bitbucket.twocanoes.eapolcfg</string>
-                        <key>options</key>
-                        <string>purge_ds_store</string>
                         <key>pkgname</key>
                         <string>%NAME%-%PKG_VERSION%</string>
                         <key>version</key>
