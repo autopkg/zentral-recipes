@@ -87,8 +87,6 @@
                         </array>
                         <key>id</key>
                         <string>com.github.cuelang.cue</string>
-                        <key>options</key>
-                        <string>purge_ds_store</string>
                         <key>pkgname</key>
                         <string>%NAME%</string>
                         <key>version</key>

@@ -74,8 +74,6 @@
                         </array>
                         <key>id</key>
                         <string>com.github.tailwindlabs.tailwindcss</string>
-                        <key>options</key>
-                        <string>purge_ds_store</string>
                         <key>pkgname</key>
                         <string>%NAME%-%version%</string>
                     </dict>
