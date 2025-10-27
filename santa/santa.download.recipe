@@ -10,6 +10,8 @@
 	<dict>
 		<key>NAME</key>
 		<string>santa</string>
+		<key>INCLUDE_PRERELEASES</key>
+		<string></string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.6.1</string>
@@ -22,6 +24,8 @@
 			<dict>
 				<key>github_repo</key>
 				<string>northpolesec/santa</string>
+				<key>include_prereleases</key>
+				<string>%INCLUDE_PRERELEASES%</string>
 			</dict>
 		</dict>
 		<dict>
