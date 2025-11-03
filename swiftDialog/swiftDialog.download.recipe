@@ -25,7 +25,7 @@
                     <key>include_prereleases</key>
                     <string>%INCLUDE_PRERELEASES%</string>
                     <key>github_repo</key>
-                    <string>bartreardon/swiftDialog</string>
+                    <string>swiftDialog/swiftDialog</string>
                     <key>asset_regex</key>
                     <string>.*\.pkg</string>
                 </dict>
