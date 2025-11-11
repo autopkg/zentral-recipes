@@ -50,7 +50,7 @@
 				<string>%pathname%/*anta*pkg</string>
 				<key>requirement</key>
 				<array>
-					<string>Developer ID Installer: North Pole Security, Inc.</string>
+					<string>Developer ID Installer: North Pole Security, Inc. (ZMCG7MLDV9)</string>
 					<string>Developer ID Certification Authority</string>
 					<string>Apple Root CA</string>
 				</array>
