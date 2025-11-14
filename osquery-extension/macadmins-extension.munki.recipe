@@ -20,7 +20,8 @@
             </array>
             <key>description</key>
             <string>macadmins-extension, an osquery extension for endpoint engineers.
-            </string>
+Release Notes:
+%release_notes%</string>
             <key>display_name</key>
             <string>macadmins_extension</string>
             <key>unattended_install</key>
