@@ -162,8 +162,10 @@ exit 0
 					<key>installcheck_script</key>
 					<string>#!/bin/zsh
 
-SANTACTL="/Applications/Santa.app/Contents/MacOS/santactl"
 minimum="%version%"
+SANTACTL="/Applications/Santa.app/Contents/MacOS/santactl"
+INFOPLIST="/Applications/Santa.app/Contents/Info.plist"
+PLISTBUDDY="/usr/libexec/PlistBuddy"
 
 # Make sure santactl exists and is executable
 if [[ ! -x "${SANTACTL}" ]]; then
@@ -171,38 +173,12 @@ if [[ ! -x "${SANTACTL}" ]]; then
 	exit 0
 fi
 
-# Get Santa versions
-santa_version="$("${SANTACTL}" version 2&gt;/dev/null)"
-if [[ -z "${santa_version}" ]]; then
-	echo "ERROR: santactl version produced no output"
+# Get Santa version
+current="$("${PLISTBUDDY}" -c "Print :CFBundleVersion" "${INFOPLIST}" 2&gt;/dev/null || true)"
+if [[ -z "${app_version}" ]]; then
+	echo "ERROR: failed to read CFBundleVersion from ${INFOPLIST}"
 	exit 0
 fi
-
-# Extract santad version output
-santad_version="$(printf '%s\n' "${santa_version}" | /usr/bin/grep -E '^[[:space:]]*santad[[:space:]]*\|' )"
-if [[ -z "${santad_version}" ]]; then
-	echo "ERROR: santactl version did not include santad line"
-	exit 0
-fi
-
-# Extract major.minor version
-major_minor="$(printf '%s\n' "${santad_version}" | /usr/bin/grep -oE '[0-9]+\.[0-9]+' | /usr/bin/head -n1)"
-
-if [[ -z "${major_minor}" ]]; then
-	echo "ERROR: Failed to extract major.minor version"
-	exit 0
-fi
-
-# Extract build number
-# Expects lines like: santad | 2025.11 (build 144, commit ...)
-build="$(printf '%s\n' "${santad_version}" | /usr/bin/grep -oEi 'build[[:space:]]*[=:]*[[:space:]]*[0-9]+' | /usr/bin/grep -oE '[0-9]+' | /usr/bin/head -n1)"
-
-if [[ -z "${build}" ]]; then
-	echo "ERROR: failed to extract build number"
-	exit 0
-fi
-
-current="${major_minor}.${build}"
 
 # Version comparison
 autoload -Uz is-at-least
