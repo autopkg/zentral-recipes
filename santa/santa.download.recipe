@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current version of santa from Github.</string>
+	<string>Downloads the current version of North Pole Security's Santa from Github.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.zentral.download.santa</string>
 	<key>Input</key>
@@ -24,6 +24,8 @@
 			<dict>
 				<key>github_repo</key>
 				<string>northpolesec/santa</string>
+				<key>asset_regex</key>
+				<string>^santa-[0-9.]+\.pkg$</string>
 				<key>include_prereleases</key>
 				<string>%INCLUDE_PRERELEASES%</string>
 			</dict>
@@ -31,11 +33,6 @@
 		<dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
-			<key>Arguments</key>
-			<dict>
-				<key>filename</key>
-				<string>%NAME%.dmg</string>
-			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
@@ -47,7 +44,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>input_path</key>
-				<string>%pathname%/*anta*pkg</string>
+				<string>%pathname%</string>
 				<key>requirement</key>
 				<array>
 					<string>Developer ID Installer: North Pole Security, Inc. (ZMCG7MLDV9)</string>

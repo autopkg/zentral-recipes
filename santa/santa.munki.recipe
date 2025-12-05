@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current version of santa from Github and imports into Munki.
+	<string>Downloads the current version of North Pole Security's Santa from Github and imports into Munki.
 	</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.zentral.munki.santa</string>
@@ -22,18 +22,72 @@
 			<array>
 				<string>testing</string>
 			</array>
+			<key>category</key>
+			<string>Management</string>
 			<key>description</key>
-			<string>Santa keeps track of binaries or app bundles that are naughty and nice</string>
+			<string>Santa keeps track of binaries or app bundles that are naughty and nice.</string>
+			<key>developer</key>
+			<string>North Pole Security, Inc.</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>unattended_install</key>
 			<true/>
-			<key>minimum_os_version</key>
-			<string>10.9.0</string>
+			<key>unattended_uninstall</key>
+			<true/>
+			<key>uninstall_method</key>
+			<string>uninstall_script</string>
+			<key>uninstall_script</key>
+			<string>#!/bin/bash
+
+## Script sourced from:
+## https://github.com/northpolesec/santa/blob/main/Conf/uninstall.sh
+
+# Uninstalls Santa from the boot volume, clearing up everything but logs/configs.
+# Unloads the kernel extension, services, and deletes component files.
+# If a user is logged in, also unloads the GUI agent.
+
+[ "$EUID" != 0 ] &amp;&amp; printf "%s\n" "This requires running as root/sudo." &amp;&amp; exit 1
+
+# This will block up to 60 seconds
+/Applications/Santa.app/Contents/MacOS/Santa --unload-system-extension
+
+# remove helper XPC services
+/bin/launchctl remove com.northpolesec.santa.bundleservice
+/bin/launchctl remove com.northpolesec.santa.metricservice
+/bin/launchctl remove com.northpolesec.santa.syncservice
+sleep 1
+user=$(/usr/bin/stat -f '%u' /dev/console)
+[[ -n "$user" ]] &amp;&amp; /bin/launchctl asuser ${user} /bin/launchctl remove com.northpolesec.santa
+# and to clean out the log config, although it won't write after wiping the binary
+/usr/bin/killall -HUP syslogd
+# delete artifacts on-disk
+/bin/rm -rf /Applications/Santa.app
+/bin/rm -f /Library/LaunchAgents/com.northpolesec.santa.plist
+/bin/rm -f /Library/LaunchDaemons/com.northpolesec.santa.bundleservice.plist
+/bin/rm -f /Library/LaunchDaemons/com.northpolesec.santa.metricservice.plist
+/bin/rm -f /Library/LaunchDaemons/com.northpolesec.santa.syncservice.plist
+/bin/rm -f /Library/LaunchAgents/com.google.santa.plist
+/bin/rm -f /Library/LaunchDaemons/com.google.santa.bundleservice.plist
+/bin/rm -f /Library/LaunchDaemons/com.google.santa.metricservice.plist
+/bin/rm -f /Library/LaunchDaemons/com.google.santa.syncservice.plist
+/bin/rm -f /private/etc/asl/com.northpolesec.santa.asl.conf
+/bin/rm -f /private/etc/newsyslog.d/com.northpolesec.santa.newsyslog.conf
+/bin/rm -f /usr/local/bin/santactl # just a symlink
+
+#forget receipt
+/usr/sbin/pkgutil --forget com.northpolesec.santa
+
+#uncomment to remove the config file and all databases, log files
+#/bin/rm -rf /var/db/santa
+#/bin/rm -f /var/log/santa*
+exit 0
+			</string>
+			<key>uninstallable</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.6.1</string>
+	<string>2.7.6</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.zentral.download.santa</string>
 	<key>Process</key>
@@ -46,7 +100,7 @@
 				<key>destination_path</key>
 				<string>%RECIPE_CACHE_DIR%/unpack</string>
 				<key>flat_pkg_path</key>
-				<string>%pathname%/santa*.pkg</string>
+				<string>%pathname%</string>
 			</dict>
 		</dict>
 		<dict>
@@ -62,11 +116,38 @@
 		</dict>
 		<dict>
 			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/faux_root</string>
+				<key>pkgdirs</key>
+				<dict>
+					<key>Applications</key>
+					<string>0775</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileMover</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source</key>
+				<string>%RECIPE_CACHE_DIR%/payload/var/db/santa/migration/Santa.app</string>
+				<key>target</key>
+				<string>%RECIPE_CACHE_DIR%/faux_root/Applications/Santa.app</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
 			<string>Versioner</string>
 			<key>Arguments</key>
 			<dict>
 				<key>input_plist_path</key>
-				<string>%RECIPE_CACHE_DIR%/payload/var/db/santa/migration/Santa.app/Contents/Info.plist</string>
+				<string>%RECIPE_CACHE_DIR%/faux_root/Applications/Santa.app/Contents/Info.plist</string>
+				<key>plist_version_key</key>
+				<string>CFBundleVersion</string>
 			</dict>
 		</dict>
 		<dict>
@@ -78,43 +159,65 @@
 				<dict>
 					<key>version</key>
 					<string>%version%</string>
-				        <key>installcheck_script</key>
-				        <string>#!/usr/local/munki/munki-python
-import plistlib
-import sys
+					<key>installcheck_script</key>
+					<string>#!/bin/zsh
 
+SANTACTL="/Applications/Santa.app/Contents/MacOS/santactl"
+minimum="%version%"
 
-def test_is_santa(extension):
-    return (
-        extension.get("identifier") == "com.northpolesec.santa.daemon"
-        and extension.get("teamID") == "ZMCG7MLDV9"
-    )
+# Make sure santactl exists and is executable
+if [[ ! -x "${SANTACTL}" ]]; then
+	echo "santactl not found or not executable"
+	exit 0
+fi
 
+# Get Santa versions
+santa_version="$("${SANTACTL}" version 2&gt;/dev/null)"
+if [[ -z "${santa_version}" ]]; then
+	echo "ERROR: santactl version produced no output"
+	exit 0
+fi
 
-def get_version(extension):
-    return extension.get("bundleVersion", {}).get("CFBundleShortVersionString")
+# Extract santad version output
+santad_version="$(printf '%s\n' "${santa_version}" | /usr/bin/grep -E '^[[:space:]]*santad[[:space:]]*\|' )"
+if [[ -z "${santad_version}" ]]; then
+	echo "ERROR: santactl version did not include santad line"
+	exit 0
+fi
 
+# Extract major.minor version
+major_minor="$(printf '%s\n' "${santad_version}" | /usr/bin/grep -oE '[0-9]+\.[0-9]+' | /usr/bin/head -n1)"
 
-def do_install_check():
-    with open("/Library/SystemExtensions/db.plist", "rb") as f:
-        info = plistlib.load(f)
-    for extension in info.get("extensions", []):
-        if (
-            test_is_santa(extension)
-            and get_version(extension) == "%version%"
-        ):
-            return extension.get("state") == "activated_enabled"
-    return False
+if [[ -z "${major_minor}" ]]; then
+	echo "ERROR: Failed to extract major.minor version"
+	exit 0
+fi
 
+# Extract build number
+# Expects lines like: santad | 2025.11 (build 144, commit ...)
+build="$(printf '%s\n' "${santad_version}" | /usr/bin/grep -oEi 'build[[:space:]]*[=:]*[[:space:]]*[0-9]+' | /usr/bin/grep -oE '[0-9]+' | /usr/bin/head -n1)"
 
-if __name__ == "__main__":
-    try:
-        ok = do_install_check()
-    except Exception:
-        pass
-    else:
-        if ok:
-            sys.exit(1)</string>
+if [[ -z "${build}" ]]; then
+	echo "ERROR: failed to extract build number"
+	exit 0
+fi
+
+current="${major_minor}.${build}"
+
+# Version comparison
+autoload -Uz is-at-least
+if ! is-at-least "${minimum}" "${current}"; then
+	echo "Santa version ${current} does not meet the minimum version requirement of ${minimum}"
+	exit 0
+fi
+
+# Make sure Santa is running
+if ! "${SANTACTL}" status &gt;/dev/null 2&gt;&amp;1; then
+	echo "santactl status failed (daemon not responsive)"
+	exit 0
+fi
+
+exit 1</string>
 				</dict>
 			</dict>
 		</dict>
@@ -123,8 +226,10 @@ if __name__ == "__main__":
 			<string>MunkiInstallsItemsCreator</string>
 			<key>Arguments</key>
 			<dict>
+				<key>derive_minimum_os_version</key>
+				<string>true</string>
 				<key>faux_root</key>
-				<string>%RECIPE_CACHE_DIR%/payload</string>
+				<string>%RECIPE_CACHE_DIR%/faux_root</string>
 				<key>installs_item_paths</key>
 				<array>
 					<string>/Applications/Santa.app</string>
@@ -146,6 +251,19 @@ if __name__ == "__main__":
 				<string>%MUNKI_REPO_SUBDIR%</string>
 				<key>version_comparison_key</key>
 				<string>CFBundleVersion</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/faux_root/</string>
+					<string>%RECIPE_CACHE_DIR%/payload/</string>
+					<string>%RECIPE_CACHE_DIR%/unpack</string>
+				</array>
 			</dict>
 		</dict>
 	</array>
