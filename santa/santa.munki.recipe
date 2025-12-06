@@ -3,8 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current version of North Pole Security's Santa from Github and imports into Munki.
-	</string>
+	<string>Downloads the current version of North Pole Security's Santa from Github and imports into Munki.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.zentral.munki.santa</string>
 	<key>Input</key>
