@@ -174,7 +174,7 @@ fi
 
 # Get Santa version
 current="$("${PLISTBUDDY}" -c "Print :CFBundleVersion" "${INFOPLIST}" 2&gt;/dev/null || true)"
-if [[ -z "${app_version}" ]]; then
+if [[ -z "${current}" ]]; then
 	echo "ERROR: failed to read CFBundleVersion from ${INFOPLIST}"
 	exit 0
 fi
