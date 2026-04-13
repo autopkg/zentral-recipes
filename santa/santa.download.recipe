@@ -3,8 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current version of North Pole Security's Santa from Github.</string>
-	<key>Identifier</key>
+	<string>Downloads the current version of North Pole Security's Santa from Github.
+Set ASSET_REGEX to "^santa-[0-9.]+-lite\.pkg$" to download the Santa Lite package instead of the standard package.
+The default value downloads the standard Santa pkg. Set INCLUDE_PRERELEASES to any non-empty string to also consider pre-release versions.</string>
+    <key>Identifier</key>
 	<string>com.github.autopkg.zentral.download.santa</string>
 	<key>Input</key>
 	<dict>
@@ -12,6 +14,8 @@
 		<string>santa</string>
 		<key>INCLUDE_PRERELEASES</key>
 		<string></string>
+		<key>ASSET_REGEX</key>
+		<string>^santa-[0-9.]+\.pkg$</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.6.1</string>
@@ -25,7 +29,7 @@
 				<key>github_repo</key>
 				<string>northpolesec/santa</string>
 				<key>asset_regex</key>
-				<string>^santa-[0-9.]+\.pkg$</string>
+				<string>%ASSET_REGEX%</string>
 				<key>include_prereleases</key>
 				<string>%INCLUDE_PRERELEASES%</string>
 			</dict>
