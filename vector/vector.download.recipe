@@ -12,6 +12,8 @@
             <string></string>
             <key>NAME</key>
             <string>vector</string>
+            <key>VECTOR_ARCH</key>
+            <string>x86_64</string>
         </dict>
         <key>MinimumVersion</key>
         <string>1.0.0</string>
@@ -27,7 +29,7 @@
                     <key>github_repo</key>
                     <string>timberio/vector</string>
                     <key>asset_regex</key>
-                    <string>vector-[\d+].\d{0,2}.\d{0,2}-x86_64-apple-darwin.tar.gz</string>
+                    <string>vector-[\d+].\d{0,2}.\d{0,2}-%VECTOR_ARCH%-apple-darwin.tar.gz</string>
                 </dict>
             </dict>
             <dict>
