@@ -3,17 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current version of North Pole Security's Santa from Github.
-Set INCLUDE_PRERELEASES to any non-empty string to also consider pre-release versions.
-For the Santa Lite variant, use com.github.autopkg.zentral.download.santa-lite, which fetches from the public nps-santa-lite GCS bucket.</string>
+	<string>Downloads the current version of North Pole Security's Santa Lite from the public nps-santa-lite Google Cloud Storage bucket.
+The version is discovered via the northpolesec/santa GitHub releases (matching the standard pkg) so we get authoritative semver-aware ordering, then the lite pkg URL is constructed deterministically. This assumes the lite build's version tag matches the standard release tag, which NPS has held to so far.
+Set INCLUDE_PRERELEASES to any non-empty string to also consider pre-release versions.</string>
 	<key>Identifier</key>
-	<string>com.github.autopkg.zentral.download.santa</string>
+	<string>com.github.autopkg.zentral.download.santa-lite</string>
 	<key>Input</key>
 	<dict>
 		<key>NAME</key>
-		<string>santa</string>
+		<string>santa-lite</string>
 		<key>INCLUDE_PRERELEASES</key>
 		<string></string>
+		<key>OBJECT_BASE_URL</key>
+		<string>https://storage.googleapis.com/nps-santa-lite</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.6.1</string>
@@ -35,6 +37,13 @@ For the Santa Lite variant, use com.github.autopkg.zentral.download.santa-lite, 
 		<dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%OBJECT_BASE_URL%/santa-%version%-lite.pkg</string>
+				<key>filename</key>
+				<string>santa-%version%-lite.pkg</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Processor</key>
