@@ -3,16 +3,18 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and installs the latest version of yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Installs to /usr/local/bin/yq</string>
+    <string>Downloads, packages and installs the latest version of yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Installs to /usr/local/bin/yq. Set ARCH to arm64 or x86_64.</string>
     <key>Identifier</key>
     <string>com.github.zentralpro.install.yq</string>
     <key>Input</key>
     <dict>
-			<key>NAME</key>
-			<string>yq</string>
-		</dict>
+        <key>ARCH</key>
+        <string>arm64</string>
+        <key>NAME</key>
+        <string>yq</string>
+    </dict>
     <key>MinimumVersion</key>
-    <string>1.0.0</string>
+    <string>2.7.6</string>
     <key>ParentRecipe</key>
     <string>com.github.zentralpro.pkg.yq</string>
     <key>Process</key>

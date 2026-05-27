@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTDPLIST1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Downloads and packages the latest version of yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Installs to /usr/local/bin/yq</string>
+        <string>Downloads and packages the latest version of yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Installs to /usr/local/bin/yq. Set ARCH to arm64 or x86_64.</string>
         <key>Identifier</key>
         <string>com.github.zentralpro.pkg.yq</string>
         <key>Input</key>
         <dict>
+            <key>ARCH</key>
+            <string>arm64</string>
             <key>NAME</key>
             <string>yq</string>
-            <key>PKG_ID</key>
-            <string>com.mikefarah.yq</string>
-            <key>PKG_VERSION</key>
-            <string>1.0.0</string>
         </dict>
         <key>MinimumVersion</key>
-        <string>1.0.0</string>
+        <string>2.7.6</string>
         <key>ParentRecipe</key>
         <string>com.github.zentralpro.download.yq</string>
         <key>Process</key>
@@ -34,9 +32,15 @@
                         <string>0755</string>
                         <key>usr/local/bin/</key>
                         <string>0775</string>
+                        <key>usr/local/share/</key>
+                        <string>0755</string>
+                        <key>usr/local/share/man/</key>
+                        <string>0755</string>
+                        <key>usr/local/share/man/man1/</key>
+                        <string>0755</string>
                     </dict>
                     <key>pkgroot</key>
-                    <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                    <string>%RECIPE_CACHE_DIR%/pkgroot</string>
                 </dict>
             </dict>
             <dict>
@@ -58,9 +62,22 @@
                 <key>Arguments</key>
                 <dict>
                     <key>source_path</key>
-                    <string>%RECIPE_CACHE_DIR%/unpack/yq_darwin_amd64</string>
+                    <string>%RECIPE_CACHE_DIR%/unpack/yq_darwin_%DOWNLOAD_ARCH%</string>
                     <key>destination_path</key>
                     <string>%pkgroot%/usr/local/bin/yq</string>
+                    <key>overwrite</key>
+                    <true/>
+                </dict>
+            </dict>
+            <dict>
+                <key>Processor</key>
+                <string>Copier</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>source_path</key>
+                    <string>%RECIPE_CACHE_DIR%/unpack/yq.1</string>
+                    <key>destination_path</key>
+                    <string>%pkgroot%/usr/local/share/man/man1/yq.1</string>
                     <key>overwrite</key>
                     <true/>
                 </dict>
@@ -80,7 +97,17 @@
                                 <key>mode</key>
                                 <string>0755</string>
                                 <key>path</key>
-                                <string>usr</string>
+                                <string>usr/local/bin/yq</string>
+                                <key>user</key>
+                                <string>root</string>
+                            </dict>
+                            <dict>
+                                <key>group</key>
+                                <string>wheel</string>
+                                <key>mode</key>
+                                <string>0644</string>
+                                <key>path</key>
+                                <string>usr/local/share/man/man1/yq.1</string>
                                 <key>user</key>
                                 <string>root</string>
                             </dict>
@@ -88,21 +115,20 @@
                         <key>id</key>
                         <string>com.github.mikefarah.yq</string>
                         <key>pkgname</key>
-                        <string>%NAME%-%version%</string>
+                        <string>%NAME%-%ARCH%-%version%</string>
+                        <key>version</key>
+                        <string>%version%</string>
                     </dict>
                 </dict>
             </dict>
             <dict>
                 <key>Processor</key>
                 <string>PathDeleter</string>
-                <key>Comment</key>
-                <string>Cleaning up</string>
                 <key>Arguments</key>
                 <dict>
                     <key>path_list</key>
                     <array>
                         <string>%RECIPE_CACHE_DIR%/unpack</string>
-                        <string>%pkgroot%</string>
                     </array>
                 </dict>
             </dict>

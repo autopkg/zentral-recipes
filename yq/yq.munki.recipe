@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads, packages and installs the latest version of yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Installs to /usr/local/bin/yq</string>
+    <string>Downloads, packages and installs the latest version of yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Installs to /usr/local/bin/yq. Set ARCH to arm64 or x86_64.</string>
     <key>Identifier</key>
     <string>com.github.zentralpro.munki.yq</string>
     <key>ParentRecipe</key>
     <string>com.github.zentralpro.pkg.yq</string>
     <key>MinimumVersion</key>
-    <string>1.0.0</string>
+    <string>2.7.6</string>
     <key>Input</key>
     <dict>
+        <key>ARCH</key>
+        <string>arm64</string>
         <key>MUNKI_NAME</key>
         <string>%NAME%</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>utilities/%NAME%</string>
+        <string>utilities/%NAME%/%ARCH%</string>
         <key>MUNKI_CATEGORY</key>
         <string>Utilities</string>
-        <key>MUNKI_DEVELOPER</key>
-        <string>mikefarah</string>
         <key>DISPLAY_NAME</key>
         <string>yq</string>
         <key>pkginfo</key>
@@ -28,22 +28,50 @@
             <array>
                 <string>testing</string>
             </array>
-            <key>description</key>
-            <string>yq is a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Installs to /usr/local/bin/yq</string>
-            <key>display_name</key>
-            <string>%DISPLAY_NAME%</string>
-            <key>name</key>
-            <string>%MUNKI_NAME%</string>
-            <key>unattended_install</key>
-            <true/>
             <key>category</key>
             <string>%MUNKI_CATEGORY%</string>
+            <key>description</key>
+            <string>yq is a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Installs to /usr/local/bin/yq</string>
             <key>developer</key>
-            <string>%MUNKI_DEVELOPER%</string>
+            <string>Mike Farah</string>
+            <key>display_name</key>
+            <string>%DISPLAY_NAME%</string>
+            <key>minimum_os_version</key>
+            <string>12.0</string>
+            <key>name</key>
+            <string>%MUNKI_NAME%</string>
+            <key>supported_architectures</key>
+            <array>
+                <string>%ARCH%</string>
+            </array>
+            <key>unattended_install</key>
+            <true/>
+            <key>unattended_uninstall</key>
+            <true/>
+            <key>version_script</key>
+            <string>#!/bin/sh
+/usr/local/bin/yq --version | /usr/bin/grep -oE '[0-9]+(\.[0-9]+)+'</string>
         </dict>
     </dict>
     <key>Process</key>
     <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiInstallsItemsCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>faux_root</key>
+                <string>%RECIPE_CACHE_DIR%/pkgroot</string>
+                <key>installs_item_paths</key>
+                <array>
+                    <string>/usr/local/bin/yq</string>
+                </array>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+        </dict>
         <dict>
             <key>Processor</key>
             <string>MunkiImporter</string>
@@ -52,7 +80,20 @@
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
                 <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+                <string>%pkg_path%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Comment</key>
+            <string>Cleaning up</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/pkgroot</string>
+                </array>
             </dict>
         </dict>
     </array>

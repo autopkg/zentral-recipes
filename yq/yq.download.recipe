@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTDPLIST1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Download yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json.</string>
+        <string>Download yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Set ARCH to arm64 or x86_64.</string>
         <key>Identifier</key>
         <string>com.github.zentralpro.download.yq</string>
         <key>Input</key>
         <dict>
             <key>INCLUDE_PRERELEASES</key>
             <string></string>
+            <key>ARCH</key>
+            <string>arm64</string>
             <key>NAME</key>
             <string>yq</string>
         </dict>
         <key>MinimumVersion</key>
-        <string>1.0.0</string>
+        <string>2.7.6</string>
         <key>Process</key>
         <array>
+            <dict>
+                <key>Processor</key>
+                <string>FindAndReplace</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>find</key>
+                    <string>x86_64</string>
+                    <key>input_string</key>
+                    <string>%ARCH%</string>
+                    <key>replace</key>
+                    <string>amd64</string>
+                    <key>result_output_var_name</key>
+                    <string>DOWNLOAD_ARCH</string>
+                </dict>
+            </dict>
             <dict>
                 <key>Processor</key>
                 <string>GitHubReleasesInfoProvider</string>
@@ -27,7 +44,7 @@
                     <key>github_repo</key>
                     <string>mikefarah/yq</string>
                     <key>asset_regex</key>
-                    <string>yq_darwin_amd64.tar.gz</string>
+                    <string>yq_darwin_%DOWNLOAD_ARCH%.tar.gz</string>
                 </dict>
             </dict>
             <dict>
@@ -36,7 +53,7 @@
                 <key>Arguments</key>
                 <dict>
                     <key>filename</key>
-                    <string>%NAME%.tar.gz</string>
+                    <string>%NAME%-%ARCH%.tar.gz</string>
                 </dict>
             </dict>
             <dict>
