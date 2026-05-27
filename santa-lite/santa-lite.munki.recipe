@@ -11,7 +11,7 @@
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>agents/santa-lite</string>
 		<key>NAME</key>
-		<string>santa-lite</string>
+		<string>santa</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>blocking_applications</key>
@@ -24,7 +24,7 @@
 			<key>category</key>
 			<string>Management</string>
 			<key>description</key>
-			<string>Santa Lite keeps track of binaries or app bundles that are naughty and nice.</string>
+			<string>Santa keeps track of binaries or app bundles that are naughty and nice.</string>
 			<key>developer</key>
 			<string>North Pole Security, Inc.</string>
 			<key>name</key>
