@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTDPLIST1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Download yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json. Set ARCH to arm64 or x86_64.</string>
+        <string>DEPRECATED: This recipe has been replaced by com.github.kevinmcox.download.yq.
+
+Download yq, a lightweight and portable command-line YAML processor. yq uses jq like syntax but works with yaml files as well as json.</string>
         <key>Identifier</key>
         <string>com.github.zentralpro.download.yq</string>
         <key>Input</key>
         <dict>
             <key>INCLUDE_PRERELEASES</key>
             <string></string>
-            <key>ARCH</key>
-            <string>arm64</string>
             <key>NAME</key>
             <string>yq</string>
         </dict>
         <key>MinimumVersion</key>
-        <string>2.7.6</string>
+        <string>1.0.0</string>
         <key>Process</key>
         <array>
             <dict>
                 <key>Processor</key>
-                <string>FindAndReplace</string>
+                <string>DeprecationWarning</string>
                 <key>Arguments</key>
                 <dict>
-                    <key>find</key>
-                    <string>x86_64</string>
-                    <key>input_string</key>
-                    <string>%ARCH%</string>
-                    <key>replace</key>
-                    <string>amd64</string>
-                    <key>result_output_var_name</key>
-                    <string>DOWNLOAD_ARCH</string>
+                    <key>warning_message</key>
+                    <string>This recipe is deprecated. Please use com.github.kevinmcox.download.yq instead.</string>
                 </dict>
             </dict>
             <dict>
@@ -44,7 +38,7 @@
                     <key>github_repo</key>
                     <string>mikefarah/yq</string>
                     <key>asset_regex</key>
-                    <string>yq_darwin_%DOWNLOAD_ARCH%.tar.gz</string>
+                    <string>yq_darwin_amd64.tar.gz</string>
                 </dict>
             </dict>
             <dict>
@@ -53,7 +47,7 @@
                 <key>Arguments</key>
                 <dict>
                     <key>filename</key>
-                    <string>%NAME%-%ARCH%.tar.gz</string>
+                    <string>%NAME%.tar.gz</string>
                 </dict>
             </dict>
             <dict>
