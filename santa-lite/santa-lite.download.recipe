@@ -56,7 +56,7 @@ Set INCLUDE_PRERELEASES to any non-empty string to also consider pre-release ver
 			<dict>
 				<key>input_path</key>
 				<string>%pathname%</string>
-				<key>requirement</key>
+				<key>expected_authority_names</key>
 				<array>
 					<string>Developer ID Installer: North Pole Security, Inc. (ZMCG7MLDV9)</string>
 					<string>Developer ID Certification Authority</string>
