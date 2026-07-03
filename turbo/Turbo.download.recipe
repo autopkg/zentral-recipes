@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the selected Turbo pkg from Zentral's S3 download page.
+		Leave PRE_RELEASE as stable for the left Stable card, or set it to edge
+		for the Bleeding edge pre-release card.</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.zentral.turbo.download</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>Turbo</string>
+		<key>PRE_RELEASE</key>
+		<string>stable</string>
+		<key>Comment</key>
+		<string>PRE_RELEASE maps to the page card class: stable is the default release, edge is the Bleeding edge pre-release.</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>https://zentral-pro-services-public.s3.eu-central-1.amazonaws.com/turbo/index.html</string>
+				<key>re_pattern</key>
+				<string>&lt;a class="card %PRE_RELEASE%" href="(https://zentral-pro-services-public\.s3\.eu-central-1\.amazonaws\.com/turbo/Turbo-[0-9]+(?:\.[0-9]+)+\.pkg)"&gt;</string>
+				<key>result_output_var_name</key>
+				<string>download_url</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>https://zentral-pro-services-public.s3.eu-central-1.amazonaws.com/turbo/index.html</string>
+				<key>re_pattern</key>
+				<string>&lt;a class="card %PRE_RELEASE%" href="https://zentral-pro-services-public\.s3\.eu-central-1\.amazonaws\.com/turbo/Turbo-([0-9]+(?:\.[0-9]+)+)\.pkg"&gt;</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%download_url%</string>
+				<key>filename</key>
+				<string>%NAME%-%version%.pkg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_path</key>
+				<string>%pathname%</string>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: Zentral Pro Services GmbH (WQ28ZDJ49Y)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
