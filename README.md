@@ -28,3 +28,15 @@ If you rely on one of the deprecated recipes and would like to take over its
 maintenance, we'd be glad to help hand it off — please
 [open an issue](https://github.com/autopkg/zentral-recipes/issues) to get in
 touch.
+
+### Adopted recipes
+
+The following deprecated recipes have been adopted and are maintained
+elsewhere — please update your overrides to point at their new homes:
+
+| Recipe | New home |
+| --- | --- |
+| `mist` (download, munki, install) | [autopkg/aanklewicz-recipes](https://github.com/autopkg/aanklewicz-recipes) (`com.github.aanklewicz.*.mist`) |
+| `Proxyman` (download, munki, pkg, install) | [autopkg/aanklewicz-recipes](https://github.com/autopkg/aanklewicz-recipes) (`com.github.aanklewicz.*.Proxyman`) |
+| `swiftDialog.download` | [autopkg/smithjw-recipes](https://github.com/autopkg/smithjw-recipes) (`com.github.smithjw.download.swiftDialog`) |
+| `swiftDialog.munki` | [autopkg/aanklewicz-recipes](https://github.com/autopkg/aanklewicz-recipes) (`com.github.aanklewicz.munki.swiftDialog`, parented on the smithjw download recipe) |

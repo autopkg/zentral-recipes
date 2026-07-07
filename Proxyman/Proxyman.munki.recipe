@@ -50,7 +50,7 @@
             <key>Arguments</key>
             <dict>
                 <key>warning_message</key>
-                <string>This recipe is deprecated and is no longer maintained by Zentral. It may stop working at any time and will not receive further updates. If you rely on it and would like to take over maintenance, we'd be glad to help hand it off — please open an issue at https://github.com/autopkg/zentral-recipes/issues to get in touch.</string>
+                <string>This recipe is deprecated and no longer maintained by Zentral. It has been adopted by aanklewicz-recipes: use com.github.aanklewicz.munki.Proxyman from https://github.com/autopkg/aanklewicz-recipes instead.</string>
             </dict>
         </dict>
         <dict>
