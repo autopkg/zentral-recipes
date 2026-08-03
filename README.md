@@ -36,6 +36,7 @@ elsewhere — please update your overrides to point at their new homes:
 
 | Recipe | New home |
 | --- | --- |
+| `ChromeRemoteDesktop` (download, munki) | [autopkg/dataJAR-recipes](https://github.com/autopkg/dataJAR-recipes) (`com.github.dataJAR-recipes.*.BlockBlock`) |
 | `mist` (download, munki, install) | [autopkg/aanklewicz-recipes](https://github.com/autopkg/aanklewicz-recipes) (`com.github.aanklewicz.*.mist`) |
 | `Proxyman` (download, munki, pkg, install) | [autopkg/aanklewicz-recipes](https://github.com/autopkg/aanklewicz-recipes) (`com.github.aanklewicz.*.Proxyman`) |
 | `swiftDialog.download` | [autopkg/smithjw-recipes](https://github.com/autopkg/smithjw-recipes) (`com.github.smithjw.download.swiftDialog`) |
