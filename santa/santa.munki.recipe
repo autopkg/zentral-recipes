@@ -56,7 +56,7 @@
 /bin/launchctl remove com.northpolesec.santa.syncservice
 sleep 1
 user=$(/usr/bin/stat -f '%u' /dev/console)
-[[ -n "$user" ]] &amp;&amp; /bin/launchctl asuser ${user} /bin/launchctl remove com.northpolesec.santa
+[[ -n "$user" ]] &amp;&amp; /bin/launchctl asuser "${user}" /bin/launchctl remove com.northpolesec.santa
 # and to clean out the log config, although it won't write after wiping the binary
 /usr/bin/killall -HUP syslogd
 # delete artifacts on-disk
